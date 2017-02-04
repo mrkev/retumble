@@ -1,0 +1,209 @@
+<!-- Paste this as your tumblr theme on tumblr.com -->
+<!DOCTYPE html>
+<head>
+  <!-- 6f011cda-9e1c-11e6-b4f7-531e647e5630 -->
+  <!--
+    The line above identifies this as a tumblr+react theme.
+    Do not remove!
+  -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="{MetaDescription}" />
+  <title>{Title} {block:PostTitle} {PostTitle} {/block:PostTitle}</title>
+  <link rel="shortcut icon" href="{Favicon}">
+  <link rel="alternate" type="application/rss+xml" href="{RSS}">
+  <link rel="apple-touch-icon" href="{PortraitURL-128}"></link>
+</head>
+
+<body>
+  <div id="blog"></div>
+  <script>
+
+    /** Parses URL params */
+    var urlParams; // http://stackoverflow.com/posts/2880929/revisions
+    (window.onpopstate = function () {
+      var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+        urlParams = {};
+      while (match = search.exec(query))
+         urlParams[decode(match[1])] = decode(match[2]);
+    })();
+
+
+    window.getRenderedObj = function (s) {
+      console.log('leggo')
+      s = s.replace(/'.*(\n).*'/g, function (match) {
+        return match.replace(/\n/g, '')
+      }).replace(/".*(\n).*"/g, function (match) {
+        return match.replace(/\n/g, '')
+      })
+      var res;
+      try { eval("res = " + s); return res; }
+      catch (e) { console.error(e); return null; }
+    }
+
+    window.raw_source = /*586f3690*/ `{
+        "Title" : "{Title}",
+      {block:Description}
+        "Description" : {JSDescription},
+      {/block:Description}
+      {block:AskEnabled}
+        "AskEnabled" : true,
+      {/block:AskEnabled}
+      {block:SubmissionsEnabled}
+        "SubmissionsEnabled" : true,
+        "SubmitLabel" : "{SubmitLabel}",
+      {/block:SubmissionsEnabled}
+
+      // Pages
+      {block:HasPages}
+        "Pages" : {
+          {block:Pages}
+            {JSURL} : {
+              URL         : {JSURL},
+              Label       : {JSLabel},
+            },
+          {/block:Pages}
+        },
+      {/block:HasPages}
+
+      {block:PermalinkPage}
+        "PermalinkPage" : true,
+      {/block:PermalinkPage}
+
+      {block:IndexPage}
+        "IndexPage" : true,
+      {/block:IndexPage}
+
+      {block:Pagination}
+      Pagination : {
+        {block:NextPage}
+          "NextPage" : "{NextPage}",
+        {/block:NextPage}
+          "lang:Older" : "{lang:Older}",
+        {block:PreviousPage}
+          "PreviousPage" : "{PreviousPage}",
+        {/block:PreviousPage}
+          "lang:Newer" : "{lang:Newer}",
+          "CurrentPage" : "{CurrentPage}",
+          "TotalPages"  : "{TotalPages}",
+      },
+      {/block:Pagination}
+
+
+      {block:PermalinkPagination}
+      PermalinkPagination : {
+        {block:PreviousPost}
+          "PreviousPost" : "{PreviousPost}",
+        {/block:PreviousPost}
+          "lang:Older" : "{lang:Older}",
+        {block:NextPost}
+          "NextPost" : "{NextPost}",
+        {/block:NextPost}
+          "lang:Newer" : "{lang:Newer}",
+          "CurrentPage" : "{CurrentPage}",
+          "TotalPages"  : "{TotalPages}",
+      },
+      {/block:PermalinkPagination}
+
+
+      // Posts
+      Posts: {
+        {block:Posts inlineMediaWidth="500"}
+
+          {JSPostID} : {
+
+            PostType:      {JSPostType},
+
+            {block:Quote}
+                  "Quote"      : {JSQuote},
+                {block:Source}
+                  "Source"     : {JSSource},
+                {/block:Source}
+            {/block:Quote}
+
+            {block:Photo}
+                  "LinkOpenTag"      : {JSLinkOpenTag},
+                  "LinkCloseTag"     : {JSLinkCloseTag},
+                  "PhotoAlt"         : {JSPhotoAlt},
+                  "PhotoURL-500"     : "{PhotoURL-500}",
+                {block:Caption}
+                  "Caption"          : {JSCaption},
+                {/block:Caption}
+            {/block:Photo}
+
+            {block:Video}
+                  "Video-500"  : {JSVideo-500},
+                {block:Caption}
+                  "Caption"    : {JSCaption},
+                {/block:Caption}
+                  "lang:Notes" : "{lang:Notes}",
+            {/block:Video}
+            {block:Link}
+                  "Target": '{Target}',
+                  "URL" : "{URL}",
+                  "Name" : "{Name}",
+                {block:Description}
+                  "Description" : "{Description}",
+                {/block:Description}
+            {/block:Link}
+            {block:Chat}
+                {block:Title}
+                  "Title"          : "{Title}",
+                {/block:Title}
+                  Lines : {
+                    {block:Lines}
+                      {JSUserNumber} : {
+                        Label      : {JSLabel},
+                        Name       : {JSName},
+                        Line       : {JSLine},
+                        UserNumber : {JSUserNumber},
+                      },
+                    {/block:Lines}
+                  },
+            {/block:Chat}
+            {block:Text}
+                  "Title"      : "{Title}",
+                  "Body"       : {JSBody},
+            {/block:Text}
+            {block:Audio}
+                  "AudioPlayerGrey"      : {JSAudioPlayerGrey},
+                  "PlayCountWithLabel"   : "{PlayCountWithLabel}",
+                {block:Caption}
+                  "Caption"              : "DISABLED",
+                {/block:Caption}
+                {block:ExternalAudio}
+                  "ExternalAudioURL"     : "{ExternalAudioURL}",
+                "lang:Download"          : "{lang:Download}"
+                {/block:ExternalAudio}
+                {block:Artist}
+                  "Artist"               : "{Artist}",
+                {/block:Artist}
+                {block:TrackName}
+                  "TrackName" : "{TrackName}",
+                {/block:TrackName}
+            {/block:Audio}
+
+              "Permalink"  : "{Permalink}",
+              "lang:Notes" : "{lang:Notes}",
+              "NoteCount"  : "{NoteCount}",
+            {block:Date}
+              "TimeAgo"    : "{TimeAgo}",
+            {/block:Date}
+            {block:PostNotes}
+              "PostNotes"  : {JSPostNotes},
+            {/block:PostNotes}
+          },
+        {/block:Posts}
+      }
+    }` /*586f3690*/
+
+    window.props = window.getRenderedObj(window.raw_source)
+
+  </script>
+  <script src="/static/bundle.js"></script>
+</body>
+</html>
+<!-- Paste this as your tumblr theme on tumblr.com -->

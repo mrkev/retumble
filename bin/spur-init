@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const program       = require('commander');
+const get_remote    = require('request-promise');
+const copydir       = require('copy-dir');
+const path          = require('path');
+
+program
+  .usage('<options> [name]')
+  .option('-i, --in-dir', 'not implemented')
+  .parse(process.argv);
+
+copydir.sync(path.resolve(__dirname, '../node_modules/react-blank'), 'project')

@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+
+const fs            = require('fs')
+const path 					= require('path')
+const program       = require('commander')
+
+program
+  .usage('[package.json]')
+  .option('-b', '--bare', 'Don\'t include bundle in theme HTML')
+  .parse(process.argv)
+
+/** Compile the bundle */
+
+const webpack       = require('webpack');
+const config        = require('./webpack.production.config')(process.cwd());
+const compiler      = webpack(config);
+
+
+const main = new Promise((res, rej) => {
+
+  // Compile
+  process.stderr.write('compiling...\n')
+  compiler.run((err, stats) => {
+    if (err) rej(err)
+    else res(stats)
+  })
+})
+.catch(console.error)
+.then(_ => {
+  process.stderr.write('All done!\n')
+  /** Output html to go on tumblr */
+  process.stderr.write('Preparing html...\n')
+
+  if (!program.bare) {
+
+    const idx = path.resolve(__dirname, 'index.html');
+    const bdl = path.join(config.output.path, config.output.filename)
+    const bdljs = fs
+      .readFileSync(bdl, 'utf8')
+    const index = fs
+      .readFileSync(idx, 'utf8')
+      .replace(
+        '<script src="/static/bundle.js"></script>',
+        () => '<script>' + bdljs + '</script>') // embed bundle
+
+    console.log(index)
+
+  } else {
+    const dfp = path.resolve(process.cwd(), 'package.json')
+    const pkg = require(program.args[0] || dfp)
+    const idx = path.resolve(__dirname, 'index.html');
+
+    if (!pkg.repository.url) {
+      console.log('no repository url!')
+      exit(0)
+    }
+
+    const gitcdn = 'https://gitcdn.xyz/repo/' + pkg.repository.url
+      .replace(/^git\+/, '')
+      .replace('https://github.com/', '')
+      .replace(/\.git$/, '')
+      + '/master'
+
+    const index = fs
+      .readFileSync(idx, 'utf8')
+      .replace(
+        '/static/bundle.js',
+        gitcdn + '/static/bundle.js') // replace local /static/bundle.js for git cdn one
+
+    console.log(index)
+
+  }
+  process.stderr.write('Done.\n')
+})
+.catch(console.error)
+
+
+
+
+
