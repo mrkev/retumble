@@ -26,7 +26,7 @@ module.exports = (working_dir) => ({
       test: /\.jsx?$/,
       loader: 'babel',
       // include: __dirname,
-      include: [__dirname, path.join(working_dir, '.')],
+      include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
       query: {
         presets: ["es2015", "stage-0", "react"],
         plugins: ["react-hot-loader/babel"],

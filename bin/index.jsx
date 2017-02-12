@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
-import TumblrBlog from './TumblrBlog.jsx'
+import TumblrBlog from '../src/TumblrBlog.jsx'
 const Blog = require("val-loader!./includes.js").default
 console.log(Blog)
 window.BlogMod = Blog
@@ -28,9 +28,9 @@ place();
 
 if (module.hot) {
   // Whenever a new version of App.js is available
-  module.hot.accept(['val-loader!./includes.js', './TumblrBlog.jsx'], () => {
+  module.hot.accept(['val-loader!./includes.js', '../src/TumblrBlog.jsx'], () => {
     // Require the new version and render it instead
-    let TumblrBlog = require('./TumblrBlog.jsx')
+    let TumblrBlog = require('../src/TumblrBlog.jsx')
     let Blog = require('val-loader!./includes.js')
     place()
   })

@@ -1,0 +1,73 @@
+import React from 'react'
+import Post       from './post/Post.jsx'
+import PostQuote  from './post/PostQuote.jsx'
+import PostLink   from './post/PostLink.jsx'
+import PostChat   from './post/PostChat.jsx'
+import PostText   from './post/PostText.jsx'
+import PostAudio  from './post/PostAudio.jsx'
+import PostVideo  from './post/PostVideo.jsx'
+import PostPhoto  from './post/PostPhoto.jsx'
+import lib from './objlib.jsx'
+
+
+export default class TumblrBlog {
+  constructor(props) {
+    Object.keys(props).forEach(k => this[k] = props[k])
+
+    /** Posts **/
+
+    this.Posts = lib.obj2arr(this.Posts).map(p =>
+      p.PostType === "photo" ? new PostPhoto(p) :
+      p.PostType === "video" ? new PostVideo(p) :
+      p.PostType === "audio" ? new PostAudio(p) :
+      p.PostType === "quote" ? new PostQuote(p) :
+      p.PostType === "link"  ? new PostLink(p)  :
+      p.PostType === "chat"  ? new PostChat(p)  :
+      p.PostType === "text"  ? new PostText(p)  :
+      new Post(p))
+    .map(p => {
+      // TODO: Hack, remove, but useful?
+      p.PermalinkPage = this.PermalinkPage
+      return p
+    })
+
+    /** Pages + Ask + Submit **/
+
+    this.Pages = lib.obj2arr(this.Pages)
+
+    if (this.AskEnabled) {
+      this.Pages.push({
+        URL: '/ask',
+        Label: 'Ask', // TODO: AskLabel
+      })
+    }
+    delete this.AskEnabled
+
+    if (this.SubmissionsEnabled) {
+      this.Pages.push({
+        URL: '/submit',
+        Label: this.SubmitLabel,
+      })
+    }
+    delete this.SubmissionsEnabled
+    delete this.SubmitLabel
+
+    this.description = lib.html_insert(this.Description)
+    delete this.Description
+
+
+    /** Pagination **/
+
+    if (this.Pagination) {
+      this.Pagination.CurrentPage = parseInt(this.Pagination.CurrentPage)
+    }
+
+    // Permalinks should only have one post
+    if (this.PermalinkPage) {
+      this.Post = this.Posts[0]
+      delete this.Posts
+    }
+
+    this.HomePage = this.IndexPage && (!this.Pagination || this.Pagination.CurrentPage === 1) // todo; nicer. rework pagination
+  }
+}
