@@ -11,17 +11,11 @@
   <title>{Title} {block:PostTitle} {PostTitle} {/block:PostTitle}</title>
   <link rel="shortcut icon" href="{Favicon}">
   <link rel="alternate" type="application/rss+xml" href="{RSS}">
-  <link rel="apple-touch-icon" href="{PortraitURL-128}"></link>
+  <link rel="apple-touch-icon" href="{PortraitURL-128}">
 </head>
 
 <body>
   <div id="blog"></div>
-
-  {block:Posts inlineMediaWidth="500"}
-  <span id="Posts/{PostID}">{Body}</span>
-  {/block:Posts}
-
-
   <script>
 
     /** Parses URL params */
