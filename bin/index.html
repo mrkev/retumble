@@ -16,6 +16,12 @@
 
 <body>
   <div id="blog"></div>
+
+  {block:Posts inlineMediaWidth="500"}
+  <span id="Posts/{PostID}">{Body}</span>
+  {/block:Posts}
+
+
   <script>
 
     /** Parses URL params */
@@ -114,7 +120,7 @@
         {block:Posts inlineMediaWidth="500"}
 
           {JSPostID} : {
-
+            PostID : {JSPostID},
             PostType:      {JSPostType},
 
             {block:Quote}

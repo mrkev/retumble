@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-
+console.log(path.join(__dirname, 'includes.js'))
 module.exports = (working_dir) => ({
   devtool: 'cheap-module-source-map',
   // target: 'node',
@@ -8,7 +8,8 @@ module.exports = (working_dir) => ({
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
-    path.join(working_dir, 'index.jsx')
+    //path.join(working_dir, 'index.jsx')
+    path.join(__dirname, 'index.jsx'),
   ],
   output: {
     path: path.join(working_dir, 'static'),
@@ -25,7 +26,7 @@ module.exports = (working_dir) => ({
       test: /\.jsx?$/,
       loader: 'babel',
       // include: __dirname,
-      include: [path.join(working_dir, '.')],
+      include: [__dirname, path.join(working_dir, '.')],
       query: {
         presets: ["es2015", "stage-0", "react"],
         plugins: ["react-hot-loader/babel"],
