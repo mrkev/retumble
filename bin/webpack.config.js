@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-console.log(path.join(__dirname, 'includes.js'))
+
 module.exports = (working_dir) => ({
   devtool: 'cheap-module-source-map',
   // target: 'node',

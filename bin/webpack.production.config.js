@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = working_dir => ({
-  entry: path.join(working_dir, 'index.jsx'),
+  entry: path.join(__dirname, 'index.jsx'),
   output: {
     path: path.join(working_dir, 'static'),
     filename: 'bundle.js',
@@ -18,7 +18,7 @@ module.exports = working_dir => ({
       test: /\.jsx?$/,
       loader: 'babel',
       // include: __dirname,
-      include: [path.join(working_dir, '.')],
+      include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
       query: {
         presets: ["es2015", "stage-0", "react"],
       },

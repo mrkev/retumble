@@ -8,6 +8,7 @@ export default class PostLink extends Post {
 
     // Description -> body()
     this.body = lib.html_insert(this.Description)
+    this.Target = this.Target || "_self"
     delete this.Description
 
   }

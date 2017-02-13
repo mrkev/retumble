@@ -51,11 +51,18 @@
       {/block:Description}
       {block:AskEnabled}
         "AskEnabled" : true,
+        "AskLabel" : {JSAskLabel},
       {/block:AskEnabled}
       {block:SubmissionsEnabled}
         "SubmissionsEnabled" : true,
         "SubmitLabel" : "{SubmitLabel}",
       {/block:SubmissionsEnabled}
+
+        BlogURL : {JSBlogURL},
+        RSS : {JSRSS},
+        Favicon : {JSFavicon},
+        CopyrightYears : {JSCopyrightYears},
+        "PortraitURL-128" : {JSPortraitURL-128},
 
       // Pages
       {block:HasPages}
@@ -114,13 +121,36 @@
         {block:Posts inlineMediaWidth="500"}
 
           {JSPostID} : {
-            PostID : {JSPostID},
-            PostType:      {JSPostType},
+            PostID  : {JSPostID},
+            PostType: {JSPostType},
+            ShortURL: {JSShortURL},
+            LikeButton: {JSLikeButton},
+            ReblogButton: {JSReblogButton},
+            EmbedUrl: {JSEmbedUrl},
+            PostNotesURL: {JSPostNotesURL},
+
+            {block:HasTags}
+              Tags: {
+                {block:Tags}
+                  {JSURLSafeTag} : {
+                    Tag : {JSTag},
+                    URLSafeTag : {JSURLSafeTag},
+                    TagURL : {JSTagURL} ,
+                    TagURLChrono: {JSTagURLChrono},
+                  },
+                {/block:Tags}
+              },
+            {/block:HasTags}
+
+            {block:Answer}
+              Question : {JSQuestion},
+              Answer   : {JSAnswer},
+            {/block:Answer}
 
             {block:Quote}
-                  "Quote"      : {JSQuote},
+                  "Quote": {JSQuote},
                 {block:Source}
-                  "Source"     : {JSSource},
+                  "Source": {JSSource},
                 {/block:Source}
             {/block:Quote}
 

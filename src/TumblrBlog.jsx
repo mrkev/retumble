@@ -31,6 +31,16 @@ export default class TumblrBlog {
       return p
     })
 
+    /** Portrait **/
+    this.portrait = (function (size) {
+      const supports = [16, 24, 30, 40, 48, 64, 96, 128, 512]
+      size = size || 512
+      if (supports.indexOf(size) < 0)
+        throw new Error("Size not supported")
+      return this["PortraitURL-128"].replace(/_(\d+)\./, `_${size}.` )
+    }).bind({"PortraitURL-128" : this["PortraitURL-128"]})
+    delete this["PortraitURL-128"]
+
     /** Pages + Ask + Submit **/
 
     this.Pages = lib.obj2arr(this.Pages)
@@ -38,10 +48,11 @@ export default class TumblrBlog {
     if (this.AskEnabled) {
       this.Pages.push({
         URL: '/ask',
-        Label: 'Ask', // TODO: AskLabel
+        Label: this.AskLabel,
       })
     }
     delete this.AskEnabled
+    delete this.AskLabel
 
     if (this.SubmissionsEnabled) {
       this.Pages.push({
@@ -54,7 +65,6 @@ export default class TumblrBlog {
 
     this.description = lib.html_insert(this.Description)
     delete this.Description
-
 
     /** Pagination **/
 
