@@ -14,23 +14,6 @@ export default class TumblrBlog {
   constructor(props) {
     Object.keys(props).forEach(k => this[k] = props[k])
 
-    /** Posts **/
-
-    this.Posts = lib.obj2arr(this.Posts).map(p =>
-      p.PostType === "photo" ? new PostPhoto(p) :
-      p.PostType === "video" ? new PostVideo(p) :
-      p.PostType === "audio" ? new PostAudio(p) :
-      p.PostType === "quote" ? new PostQuote(p) :
-      p.PostType === "link"  ? new PostLink(p)  :
-      p.PostType === "chat"  ? new PostChat(p)  :
-      p.PostType === "text"  ? new PostText(p)  :
-      new Post(p))
-    .map(p => {
-      // TODO: Hack, remove, but useful?
-      p.PermalinkPage = this.PermalinkPage
-      return p
-    })
-
     /** Portrait **/
     this.portrait = (function (size) {
       const supports = [16, 24, 30, 40, 48, 64, 96, 128, 512]
@@ -66,18 +49,53 @@ export default class TumblrBlog {
     this.description = lib.html_insert(this.Description)
     delete this.Description
 
-    /** Pagination **/
-    if (this.Pagination)
-      this.Pagination = new Pagination(this.Pagination)
-    if (this.PermalinkPagination)
-      this.PermalinkPagination = new Pagination(this.PermalinkPagination)
-
-    // Permalinks should only have one post
-    if (this.PermalinkPage) {
-      this.Post = this.Posts[0]
-      delete this.Posts
-    }
+    /**
+		Blog:
+			- Title
+			- Metadata
+			- Index
+				- Posts
+				- Pagination
+			- Content
+				- Post
+				- Pagination
+		**/
 
     this.HomePage = this.IndexPage && (!this.Pagination || this.Pagination.CurrentPage === 1) // todo; nicer. rework pagination
+
+    this.Posts = lib.obj2arr(this.Posts).map(p =>
+      p.PostType === "photo" ? new PostPhoto(p) :
+      p.PostType === "video" ? new PostVideo(p) :
+      p.PostType === "audio" ? new PostAudio(p) :
+      p.PostType === "quote" ? new PostQuote(p) :
+      p.PostType === "link"  ? new PostLink(p)  :
+      p.PostType === "chat"  ? new PostChat(p)  :
+      p.PostType === "text"  ? new PostText(p)  :
+      new Post(p))
+    .map(p => {
+      p.PermalinkPage = this.PermalinkPage // TODO: Hack, remove, but useful?
+      return p
+    })
+
+		if (this.IndexPage) {
+			this.Index = {}
+      this.Index.Posts = this.Posts
+			this.Index.Pagination = new Pagination(this.Pagination)
+		}
+
+		/** Content page **/
+		if (this.PermalinkPage) {
+			this.Content = {}
+      this.Content.Post = this.Posts[0]
+      this.Content.Pagination = new Pagination(this.PermalinkPagination)
+		}
+
+    delete this.Pagination
+    delete this.IndexPage
+    delete this.Posts
+    delete this.PermalinkPagination
+    delete this.PermalinkPage
+
+
   }
 }

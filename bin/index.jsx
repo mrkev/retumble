@@ -31,23 +31,17 @@ const place = _ => {
 
   // Posts are state since they can be dynamically loaded.
   // Delete them from props so they aren't repeated.
-  window.state = {}
-  if (window.props.Posts) {
-    window.state.Posts = window.props.Posts
-    delete window.props.Posts
-  }
+  // window.state = {}
+  // if (window.props.Posts) {
+  //   window.state.Posts = window.props.Posts
+  //   delete window.props.Posts
+  // }
 
-  if (urlParams['render'] !== 'raw') {
-    console.log('rendering')
-		ReactDOM.render(
-      <Blog {... props} />,
-      document.getElementById('blog')
-    );
-  } else {
-    document.open();
-    document.write(JSON.stringify(props));
-    document.close();
-  }
+  console.log('rendering')
+  ReactDOM.render(
+    <Blog {... props} />,
+    document.getElementById('blog')
+  );
 }
 
 place();
