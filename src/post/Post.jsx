@@ -1,4 +1,18 @@
 import lib from '../objlib.jsx'
+import React from 'react'
+
+class LikeButton extends React.Component {
+  componentDidMount() {
+		const elem = document.getElementById(this.props.id)
+		lib.insertHTML(elem, this.props.src)
+		console.log(this.props.src)
+  }
+  render() { return (
+    <div id={this.props.id}>
+    </div>
+  )}
+
+}
 
 export default class Post {
   constructor(props) {
@@ -6,9 +20,11 @@ export default class Post {
     Object.keys(props).forEach(k => this[k] = props[k])
 
     this.Tags = this.Tags && lib.obj2arr(this.Tags) || [];
-
     this.likebutton = lib.html_insert(this.LikeButton);
     this.reblogbutton = lib.html_insert(this.ReblogButton);
+    this.testlike = <LikeButton
+			id={"like-" + this.PostID}
+			src={this.LikeButton}></LikeButton>
     delete this.LikeButton
     delete this.ReblogButton
 
@@ -16,5 +32,7 @@ export default class Post {
     // calculate them fast enough)
     try { this.NoteCount = parseInt(this.NoteCount) }
     catch (e) { this.NoteCount = false }
+
+    this.Timestamp = new Date(parseInt(this.Timestamp) * 1000)
   }
 }

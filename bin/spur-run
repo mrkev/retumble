@@ -93,7 +93,7 @@ app.use(require('webpack-hot-middleware')(compiler));
           .replaceAll(remote_url, 'http://localhost:3000')
 
         return middle
-          ? local.subvert(bobj_del, bobj_del, middle)
+          ? local.revert(bobj_del, bobj_del, middle)
           : local;
       })
    })

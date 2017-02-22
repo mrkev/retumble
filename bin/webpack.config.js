@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = (working_dir) => ({
-  devtool: 'cheap-module-source-map',
+  // devtool: 'source-map',
   // target: 'node',
   // externals: [nodeExternals()],
   entry: [

@@ -12,6 +12,11 @@ String.prototype.subvert = function(a, b, c) {
   return this.substring(0, this.indexOf(a)) + c + this.substring(this.lastIndexOf(b) + b.length)
 };
 
+/** ssaxxxbss -> ssacbss */
+String.prototype.revert = function(a, b, c) {
+  return this.substring(0, this.indexOf(a)) + a + c + b + this.substring(this.lastIndexOf(b) + b.length)
+};
+
 /* String -> RegExp String, for a RegExp that would match that string */
 String.prototype.escapeRegExp = function() {
   return this.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');

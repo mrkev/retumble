@@ -17,34 +17,9 @@
 <body>
   <div id="blog"></div>
   <script>
-
-    /** Parses URL params */
-    var urlParams; // http://stackoverflow.com/posts/2880929/revisions
-    (window.onpopstate = function () {
-      var match,
-        pl     = /\+/g,  // Regex for replacing addition symbol with a space
-        search = /([^&=]+)=?([^&]*)/g,
-        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-        query  = window.location.search.substring(1);
-        urlParams = {};
-      while (match = search.exec(query))
-         urlParams[decode(match[1])] = decode(match[2]);
-    })();
-
-
-    window.getRenderedObj = function (s) {
-      console.log('leggo')
-      s = s.replace(/'.*(\n).*'/g, function (match) {
-        return match.replace(/\n/g, '')
-      }).replace(/".*(\n).*"/g, function (match) {
-        return match.replace(/\n/g, '')
-      })
-      var res;
-      try { eval("res = " + s); return res; }
-      catch (e) { console.error(e); return null; }
-    }
-
     window.raw_source = /*586f3690*/ `{
+        // Main Info
+
         "Title" : "{Title}",
       {block:Description}
         "Description" : {JSDescription},
@@ -58,11 +33,32 @@
         "SubmitLabel" : "{SubmitLabel}",
       {/block:SubmissionsEnabled}
 
+
         BlogURL : {JSBlogURL},
         RSS : {JSRSS},
         Favicon : {JSFavicon},
         CopyrightYears : {JSCopyrightYears},
         "PortraitURL-128" : {JSPortraitURL-128},
+
+        // Language
+        "lang:Older" : "{lang:Older}",
+        "lang:Newer" : "{lang:Newer}",
+
+      // Page Type
+      {block:PermalinkPage}
+        "PermalinkPage" : true,
+      {/block:PermalinkPage}
+
+      {block:IndexPage}
+        "IndexPage" : true,
+      {/block:IndexPage}
+
+      {block:SearchPage}
+        "SearchPage" : true,
+        "SearchResultCount" : {JSSearchResultCount},
+        "SearchQuery" : {JSSearchQuery},
+        "URLSafeSearchQuery": {JSURLSafeSearchQuery},
+      {/block:SearchPage}
 
       // Pages
       {block:HasPages}
@@ -76,13 +72,6 @@
         },
       {/block:HasPages}
 
-      {block:PermalinkPage}
-        "PermalinkPage" : true,
-      {/block:PermalinkPage}
-
-      {block:IndexPage}
-        "IndexPage" : true,
-      {/block:IndexPage}
 
       {block:Pagination}
       Pagination : {
@@ -145,6 +134,8 @@
             {block:Answer}
               Question : {JSQuestion},
               Answer   : {JSAnswer},
+              Asker : {JSAsker},
+              "AskerPortraitURL-128" : {JSAskerPortraitURL-128},
             {/block:Answer}
 
             {block:Quote}
@@ -155,10 +146,18 @@
             {/block:Quote}
 
             {block:Photo}
+                // {block:LinkURL}
+                  LinkURL: : {JSLinkURL},
                   "LinkOpenTag"      : {JSLinkOpenTag},
                   "LinkCloseTag"     : {JSLinkCloseTag},
+                // {/block:LinkURL}
                   "PhotoAlt"         : {JSPhotoAlt},
                   "PhotoURL-500"     : "{PhotoURL-500}",
+                {block:HighRes}
+                  "PhotoURL-HighRes" : {JSPhotoURL-HighRes},
+                  "PhotoWidth-HighRes" : {JSPhotoWidth-HighRes},
+                  "PhotoHeight-HighRes" : {JSPhotoHeight-HighRes},
+                {/block:HighRes}
                 {block:Caption}
                   "Caption"          : {JSCaption},
                 {/block:Caption}
@@ -221,6 +220,7 @@
               "NoteCount"  : "{NoteCount}",
             {block:Date}
               "TimeAgo"    : "{TimeAgo}",
+              "Timestamp"  : {JSTimestamp},
             {/block:Date}
             {block:PostNotes}
               "PostNotes"  : {JSPostNotes},
@@ -229,9 +229,6 @@
         {/block:Posts}
       }
     }` /*586f3690*/
-
-    window.props = window.getRenderedObj(window.raw_source)
-
   </script>
   <script src="/static/bundle.js"></script>
 </body>

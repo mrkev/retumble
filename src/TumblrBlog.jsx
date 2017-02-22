@@ -7,8 +7,8 @@ import PostText   from './post/PostText.jsx'
 import PostAudio  from './post/PostAudio.jsx'
 import PostVideo  from './post/PostVideo.jsx'
 import PostPhoto  from './post/PostPhoto.jsx'
+import Pagination from './part/Pagination.jsx'
 import lib from './objlib.jsx'
-
 
 export default class TumblrBlog {
   constructor(props) {
@@ -67,10 +67,10 @@ export default class TumblrBlog {
     delete this.Description
 
     /** Pagination **/
-
-    if (this.Pagination) {
-      this.Pagination.CurrentPage = parseInt(this.Pagination.CurrentPage)
-    }
+    if (this.Pagination)
+      this.Pagination = new Pagination(this.Pagination)
+    if (this.PermalinkPagination)
+      this.PermalinkPagination = new Pagination(this.PermalinkPagination)
 
     // Permalinks should only have one post
     if (this.PermalinkPage) {

@@ -16,7 +16,24 @@ const html_insert = html => props => {
   )
 }
 
+const insertScript = (elem, src) => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.appendChild(document.createTextNode(src));
+    elem.appendChild(script);
+}
+
+const insertHTML = (elem, src) => {
+    //var script = document.createElement("script");
+    //script.type = "text/javascript";
+    //script.appendChild(document.createTextNode(src));
+    // elem.appendChild(script);
+    elem.innerHTML = src;
+}
+
 export default {
   obj2arr,
   html_insert,
+  insertScript,
+  insertHTML,
 }
