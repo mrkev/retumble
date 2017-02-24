@@ -17,20 +17,23 @@
 <body>
   <div id="blog"></div>
   <script>
-    window.raw_source = /*586f3690*/ `{
+    window.object = /*586f3690*/ {
         // Main Info
 
-        "Title" : "{Title}",
+        "Title" : {JSTitle},
+
       {block:Description}
         "Description" : {JSDescription},
       {/block:Description}
+
       {block:AskEnabled}
         "AskEnabled" : true,
         "AskLabel" : {JSAskLabel},
       {/block:AskEnabled}
+
       {block:SubmissionsEnabled}
         "SubmissionsEnabled" : true,
-        "SubmitLabel" : "{SubmitLabel}",
+        "SubmitLabel" : {JSSubmitLabel},
       {/block:SubmissionsEnabled}
 
 
@@ -76,13 +79,13 @@
       {block:Pagination}
       Pagination : {
         {block:NextPage}
-          "NextPage" : "{NextPage}",
+          "NextPage" : {JSNextPage},
         {/block:NextPage}
           "lang:Older" : "{lang:Older}",
         {block:PreviousPage}
-          "PreviousPage" : "{PreviousPage}",
+          "PreviousPage" : {JSPreviousPage},
         {/block:PreviousPage}
-          "lang:Newer" : "{lang:Newer}",
+          "lang:Newer"  : "{lang:Newer}",
           "CurrentPage" : "{CurrentPage}",
           "TotalPages"  : "{TotalPages}",
       },
@@ -92,15 +95,15 @@
       {block:PermalinkPagination}
       PermalinkPagination : {
         {block:PreviousPost}
-          "PreviousPost" : "{PreviousPost}",
+          "PreviousPost" : {JSPreviousPost},
         {/block:PreviousPost}
           "lang:Older" : "{lang:Older}",
         {block:NextPost}
-          "NextPost" : "{NextPost}",
+          "NextPost" : {JSNextPost},
         {/block:NextPost}
           "lang:Newer" : "{lang:Newer}",
-          "CurrentPage" : "{CurrentPage}",
-          "TotalPages"  : "{TotalPages}",
+          "CurrentPage" : {JSCurrentPage},
+          "TotalPages"  : {JSTotalPages},
       },
       {/block:PermalinkPagination}
 
@@ -152,7 +155,7 @@
                   "LinkCloseTag"     : {JSLinkCloseTag},
                 // {/block:LinkURL}
                   "PhotoAlt"         : {JSPhotoAlt},
-                  "PhotoURL-500"     : "{PhotoURL-500}",
+                  "PhotoURL-500"     : {JSPhotoURL-500},
                 {block:HighRes}
                   "PhotoURL-HighRes" : {JSPhotoURL-HighRes},
                   "PhotoWidth-HighRes" : {JSPhotoWidth-HighRes},
@@ -172,15 +175,15 @@
             {/block:Video}
             {block:Link}
                   "Target": '{Target}',
-                  "URL" : "{URL}",
-                  "Name" : "{Name}",
+                  "URL" : {JSURL},
+                  "Name" : {JSName},
                 {block:Description}
-                  "Description" : "{Description}",
+                  "Description" : {JSDescription},
                 {/block:Description}
             {/block:Link}
             {block:Chat}
                 {block:Title}
-                  "Title"          : "{Title}",
+                  "Title"          : {JSTitle},
                 {/block:Title}
                   Lines : {
                     {block:Lines}
@@ -194,32 +197,32 @@
                   },
             {/block:Chat}
             {block:Text}
-                  "Title"      : "{Title}",
+                  "Title"      : {JSTitle},
                   "Body"       : {JSBody},
             {/block:Text}
             {block:Audio}
                   "AudioPlayerGrey"      : {JSAudioPlayerGrey},
-                  "PlayCountWithLabel"   : "{PlayCountWithLabel}",
+                  "PlayCountWithLabel"   : {JSPlayCountWithLabel},
                 {block:Caption}
                   "Caption"              : "DISABLED",
                 {/block:Caption}
                 {block:ExternalAudio}
-                  "ExternalAudioURL"     : "{ExternalAudioURL}",
-                "lang:Download"          : "{lang:Download}"
+                  "ExternalAudioURL"     : {JSExternalAudioURL},
+                "lang:Download"          : "{lang:Download}",
                 {/block:ExternalAudio}
                 {block:Artist}
-                  "Artist"               : "{Artist}",
+                  "Artist"               : {JSArtist},
                 {/block:Artist}
                 {block:TrackName}
-                  "TrackName" : "{TrackName}",
+                  "TrackName" : {JSTrackName},
                 {/block:TrackName}
             {/block:Audio}
 
-              "Permalink"  : "{Permalink}",
+              "Permalink"  : {JSPermalink},
               "lang:Notes" : "{lang:Notes}",
-              "NoteCount"  : "{NoteCount}",
+              "NoteCount"  : {JSNoteCount},
             {block:Date}
-              "TimeAgo"    : "{TimeAgo}",
+              "TimeAgo"    : {JSTimeAgo},
               "Timestamp"  : {JSTimestamp},
             {/block:Date}
             {block:PostNotes}
@@ -228,7 +231,7 @@
           },
         {/block:Posts}
       }
-    }` /*586f3690*/
+    } /*586f3690*/
   </script>
   <script src="/static/bundle.js"></script>
 </body>

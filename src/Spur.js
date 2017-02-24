@@ -13,8 +13,9 @@ const getIndexPage = page => {
   .then(json => json && new TumblrBlog(json))
 }
 
+// todo; Make a process(window.object) -> (Lang, TumblrBlog)
 const Lang = {}
-Object.keys(window.json).forEach(x => {
+Object.keys(window.Object).forEach(x => {
   if (x.indexOf('lang:') === 0) {
     Lang[x.replace('lang:', '')] = window.json[x]
     delete window.json[x]
@@ -22,7 +23,6 @@ Object.keys(window.json).forEach(x => {
 })
 
 import Waypoint from '../node_modules/react-waypoint/build/waypoint.js'
-
 
 class InfiniteIndex extends React.Component {
 
