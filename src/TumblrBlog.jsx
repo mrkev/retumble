@@ -87,7 +87,9 @@ export default class TumblrBlog {
 		if (this.PermalinkPage) {
 			this.Content = {}
       this.Content.Post = this.Posts[0]
-      this.Content.Pagination = new Pagination(this.PermalinkPagination)
+      // Pages don't have pagination
+      if (this.PermalinkPagination)
+        this.Content.Pagination = new Pagination(this.PermalinkPagination)
 		}
 
     delete this.Pagination
