@@ -35,8 +35,7 @@ module.exports = (working_dir) => ({
     {
       test: /\.css$/,
       loader: "style-loader!css-loader",
-      //include: __dirname,
-      include: [path.join(working_dir, '.')],
+      include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
     }]
   }
 })

@@ -88,8 +88,8 @@ app.use(require('webpack-hot-middleware')(compiler));
       .then(local => {
         let middle = file && file
           .between(bobj_del, bobj_del)
-          .replace(/\\x0a/g, '')   // gets evaled to newline by js before acutal evaluation happens, so it breaks eval(), cause javascript doesn't support multine strings
-          .replace(/\\'/g, '\\\\') // for some reason there's strings with \' instead of like unicode escapes
+//          .replace(/\\x0a/g, '')   // gets evaled to newline by js before acutal evaluation happens, so it breaks eval(), cause javascript doesn't support multine strings
+//          .replace(/\\'/g, '\\\\') // for some reason there's strings with \' instead of like unicode escapes
           .replaceAll(remote_url, 'http://localhost:3000')
 
         return middle

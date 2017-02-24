@@ -37,6 +37,7 @@
     "react-blank": "git+https://github.com/mrkev/react-blank.git",
     "react-dom": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-progress-button": "^5.0.1",
     "request": "^2.75.0",
     "request-promise": "^4.1.1",
     "style-loader": "^0.13.1",

@@ -23,22 +23,30 @@ Object.keys(window.Object).forEach(x => {
 })
 
 import Waypoint from '../node_modules/react-waypoint/build/waypoint.js'
+import ProgressButton from 'react-progress-button'
+import "./css/react-progress-button.css"
 
 class InfiniteIndex extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = this.props.Index;
+    this.state.query = '' // '', loading, success, error or disabled
   }
 
 	// todo; what happens when the end is reached
-  testNext () {
+  nextIndex () {
+    this.setState({ query : 'loading' })
     getIndexPage(this.state.Pagination.NextPage)
-      .catch(x => console.error('error fetchig'))
+      .catch(x => {
+        this.setState({ query : 'error' })
+        console.error('error fetchig next index')
+      })
       .then(blog => {
         const index = blog.Index
         index.Posts = this.state.Posts.concat(index.Posts)
         this.setState(index)
+        this.setState({ query : '' })
       })
   }
 
@@ -48,8 +56,12 @@ class InfiniteIndex extends React.Component {
         {this.state.Posts.map((post, i) =>
           <this.props.PostComponent {...post} key={i} />
         )}
-				<Waypoint onEnter={this.testNext.bind(this)} />
-        <button onClick={this.testNext.bind(this)}>test button</button>
+				<Waypoint onEnter={this.nextIndex.bind(this)} />
+        <ProgressButton
+            onClick={this.nextIndex.bind(this)}
+            state={this.state.query}>
+          more
+        </ProgressButton>
       </div>
     )
   }
