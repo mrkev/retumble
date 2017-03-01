@@ -28,22 +28,33 @@ String.prototype.replaceAll = function(find, replace) {
 const bobj_del         = `/*${586}` + 'f3690*/';
 /** Identifies a react theme. All react themes should include this. */
 const theme_identifier = '<!-- 6f011cda-9e1c-11e6-b4f7-531e647e5630 -->'
+const isTheme = file =>
+  file && file.toString().indexOf(theme_identifier) > -1;
 
-const json_from_string = function (s) {
+
+const t_objt_from_string = function (s) {
   var res;
   try { eval("res = " + s); return res; }
   catch (e) { console.error(e); return null; }
 }
 
-let is_theme = file =>
-  file && file.toString().indexOf(theme_identifier) > -1;
-
-const string_from_html = function (file) {
-  if (!is_theme(file)) { return null }
+const t_string_from_html = function (file) {
+  if (!isTheme(file)) { return null }
   else return file.between(bobj_del, bobj_del)
 }
 
+const getPage = page => {
+  const TumblrBlog = require('../TumblrBlog.jsx').default;
+  return fetch(page)
+  .then(response => response.text())
+  .then(body => body && t_string_from_html(body))
+  .then(ostr => ostr && t_objt_from_string(ostr))
+  .then(json => json && new TumblrBlog(json))
+}
+
 module.exports = {
-  json_from_string,
-  string_from_html
+  t_objt_from_string,
+  t_string_from_html,
+  isTheme,
+  getPage,
 }

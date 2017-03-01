@@ -5,7 +5,6 @@ const express       = require('express');
 const fs            = require('fs');
 const get_remote    = require('request-promise');
 const app           = express();
-const child_process = require('child_process');
 const lib           = require('./lib/index');
 const path          = require('path');
 const webpack       = require('webpack');
@@ -13,6 +12,7 @@ const config        = require('./webpack.config')(process.cwd())
 const compiler      = webpack(config);
 const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
+const extract       = require('../src/lib/extract')
 
 /** Program mcjiggs */
 
@@ -22,35 +22,21 @@ program
   .parse(process.argv);
 
 const remote_url = program.source  || 'http://digi123.tumblr.com'
-const themefile  = program.args[0] || '/index.html' || path.join(__dirname, './index.html')
+const themefile  = program.args[0] || path.resolve(__dirname, 'index.html')
 
-/** Starts the symlink */
-// lib.load_project(__dirname)
-
-/** Identifies a react theme. All react themes should include this. */
-const theme_identifier = '<!-- 6f011cda-9e1c-11e6-b4f7-531e647e5630 -->'
 /** Delimits the blog object in a react theme. */
-const bobj_del         = '/*586f3690*/';
-
-let is_theme = file =>
-  file && file.toString().indexOf(theme_identifier) > -1;
-
-let replace_remote_urls = file => {
-  if (!file) return file
-  if (is_theme(file)) {
-    file = file.toString()
-  }
-  return file;
-}
+const bobj_del = '/*586f3690*/';
 
 /** Gets local file */
-let get_local = (url) => new Promise((res, rej) => {
+const get_local = url => new Promise((res, rej) => {
   console.log('   * getting local', url)
-  fs.readFile(__dirname + url, 'utf8', (err, data) => {
+  fs.readFile(url, 'utf8', (err, data) => {
     if (err) rej(err)
     else res(data)
   })
 })
+
+const local_theme = fs.readFileSync(themefile, 'utf8')
 
 /** Webpack mcjiggs */
 
@@ -62,52 +48,47 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-/** Gets a resource in a remote tumblr src.
- *  If resource is a theme-page
- *   > Inserts data into local tumblr theme.
- *   > Fixes issues with string endocing.
- *   > Replaces gitcdn urls with relative-path urls
- *   > Returns local tumblr theme.
- *  Else; returns resource as-is.
- */
- app // Route all requests to remote equivalent
- .get(/.*/, function (req, res) {
-   console.log(` > requested ${req.path}`)
-   get_remote(remote_url + req.path)
-   .catch(e => {
-     // TODO: Check if is /, if thats the case,
-     // its a faulty interent connection
-     console.log(` - no remote ${req.path}`)
 
-     return get_local(req.path)
-   })
-   // we want to use the local themefile
-   .then(file => {
-     if (!is_theme(file)) { return file }
-     else return get_local(themefile) // assumes themefile
-      .then(local => {
-        let middle = file && file
-          .between(bobj_del, bobj_del)
-//          .replace(/\\x0a/g, '')   // gets evaled to newline by js before acutal evaluation happens, so it breaks eval(), cause javascript doesn't support multine strings
-//          .replace(/\\'/g, '\\\\') // for some reason there's strings with \' instead of like unicode escapes
-          .replaceAll(remote_url, 'http://localhost:3000')
-
-        return middle
-          ? local.revert(bobj_del, bobj_del, middle)
-          : local;
-      })
-   })
-   .then(replace_remote_urls)
-   .then(r => {
-     console.log(` v returning something for ${req.path}`)
-     res.type('html');
-     res.send(r);
-   })
-   .catch(x => {
-     console.error(x)
-     res.status(404).send('Not found')
-   })
- })
+app // Route all requests to remote equivalent
+.get(/.*/, function (req, res) {
+  console.log(` > requested ${req.path}`)
+  /**
+   * We fetch. If path exist on remote, we return
+   * that, otherwise, we fall back to local files.
+   */
+  get_remote(remote_url + req.path)
+  .catch(e => {
+    // TODO: Check if is /, if thats the case,
+    // its a faulty interent connection
+    console.log(` - no remote ${req.path}`)
+ 
+    return get_local(req.path)
+  })
+   /**
+    * If we fetched a themefile (from remote) 
+    * we take its info and put it in the local
+    * themefile.
+    */
+  .then(file => {
+    if (!extract.isTheme(file)) { return file }
+    else {
+      const middle = file && extract.t_string_from_html(file)
+        .replaceAll(remote_url, 'http://localhost:3000')
+      return middle
+        ? local_theme.revert(bobj_del, bobj_del, middle)
+        : local_theme;
+    }
+  })
+  .then(r => {
+    console.log(` v returning something for ${req.path}`)
+    res.type('html');
+    res.send(r);
+  })
+  .catch(x => {
+    console.error(x)
+    res.status(404).send('Not found')
+  })
+})
 
 app.listen(3000, function () {
   console.log(`
@@ -116,6 +97,4 @@ app.listen(3000, function () {
     > src: ${remote_url}
     `);
 });
-
-// eval(`var x = { "b" : '\x0a' }`);
 

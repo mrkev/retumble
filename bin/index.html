@@ -44,8 +44,12 @@
         "PortraitURL-128" : {JSPortraitURL-128},
 
         // Language
-        "lang:Older" : "{lang:Older}",
-        "lang:Newer" : "{lang:Newer}",
+        "lang:Older"    : "{lang:Older}",
+        "lang:Newer"    : "{lang:Newer}",
+        "lang:Notes"    : "{lang:Notes}",
+        "lang:Download" : "{lang:Download}",
+        "lang:Load more posts" : "{lang:Load more posts}",
+        "lang:Loading" : "{lang:Loading}",
 
       // Page Type
       {block:PermalinkPage}
@@ -81,11 +85,9 @@
         {block:NextPage}
           "NextPage" : {JSNextPage},
         {/block:NextPage}
-          "lang:Older" : "{lang:Older}",
         {block:PreviousPage}
           "PreviousPage" : {JSPreviousPage},
         {/block:PreviousPage}
-          "lang:Newer"  : "{lang:Newer}",
           "CurrentPage" : "{CurrentPage}",
           "TotalPages"  : "{TotalPages}",
       },
@@ -97,13 +99,9 @@
         {block:PreviousPost}
           "PreviousPost" : {JSPreviousPost},
         {/block:PreviousPost}
-          "lang:Older" : "{lang:Older}",
         {block:NextPost}
           "NextPost" : {JSNextPost},
         {/block:NextPost}
-          "lang:Newer" : "{lang:Newer}",
-          "CurrentPage" : {JSCurrentPage},
-          "TotalPages"  : {JSTotalPages},
       },
       {/block:PermalinkPagination}
 
@@ -171,7 +169,6 @@
                 {block:Caption}
                   "Caption"    : {JSCaption},
                 {/block:Caption}
-                  "lang:Notes" : "{lang:Notes}",
             {/block:Video}
             {block:Link}
                   "Target": '{Target}',
@@ -204,11 +201,11 @@
                   "AudioPlayerGrey"      : {JSAudioPlayerGrey},
                   "PlayCountWithLabel"   : {JSPlayCountWithLabel},
                 {block:Caption}
-                  "Caption"              : "DISABLED",
+                  "Caption"              : {JSCaption},
                 {/block:Caption}
                 {block:ExternalAudio}
                   "ExternalAudioURL"     : {JSExternalAudioURL},
-                "lang:Download"          : "{lang:Download}",
+
                 {/block:ExternalAudio}
                 {block:Artist}
                   "Artist"               : {JSArtist},
@@ -219,7 +216,6 @@
             {/block:Audio}
 
               "Permalink"  : {JSPermalink},
-              "lang:Notes" : "{lang:Notes}",
               "NoteCount"  : {JSNoteCount},
             {block:Date}
               "TimeAgo"    : {JSTimeAgo},

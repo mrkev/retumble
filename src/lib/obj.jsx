@@ -1,7 +1,7 @@
 import React from 'react'
 
 const obj2arr = obj =>
-  Object.keys(obj).map(k => obj[k])
+  Object.keys(obj || {}).map(k => obj[k])
 
 /**
  * Creates an html-insert function

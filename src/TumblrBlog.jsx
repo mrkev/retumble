@@ -8,7 +8,7 @@ import PostAudio  from './post/PostAudio.jsx'
 import PostVideo  from './post/PostVideo.jsx'
 import PostPhoto  from './post/PostPhoto.jsx'
 import Pagination from './part/Pagination.jsx'
-import lib from './objlib.jsx'
+import lib from './lib/obj.jsx'
 
 export default class TumblrBlog {
   constructor(props) {
@@ -26,6 +26,7 @@ export default class TumblrBlog {
 
     /** Pages + Ask + Submit **/
 
+    // Ensures this.Pages exists and is an Array
     this.Pages = lib.obj2arr(this.Pages)
 
     if (this.AskEnabled) {
@@ -61,7 +62,31 @@ export default class TumblrBlog {
 				- Pagination
 		**/
 
-    this.HomePage = this.IndexPage && (!this.Pagination || this.Pagination.CurrentPage === 1) // todo; nicer. rework pagination
+		if (this.IndexPage) {
+			this.Index = {}
+			this.Index.Pagination = new Pagination(this.Pagination)
+		}
+
+		/** Content page **/
+		if (this.PermalinkPage) {
+			this.Content = {}
+      if (this.PermalinkPagination) // Pages don't have pagination
+        this.Content.Pagination = new Pagination(this.PermalinkPagination)
+		}
+
+    delete this.Pagination
+    delete this.IndexPage
+    delete this.PermalinkPagination
+    delete this.PermalinkPage
+
+    const index = !!this.Index
+    const perma = !!this.Content
+
+    this.HomePage = this.Index && this.Index.Pagination.CurrentPage === 1 // todo; nicer. rework pagination
+    this.PageType =
+      (index) ? 'index' :
+      (perma && this.Content.Pagination) ? 'post'
+      : 'page'
 
     this.Posts = lib.obj2arr(this.Posts).map(p =>
       p.PostType === "photo" ? new PostPhoto(p) :
@@ -73,31 +98,13 @@ export default class TumblrBlog {
       p.PostType === "text"  ? new PostText(p)  :
       new Post(p))
     .map(p => {
-      p.PermalinkPage = this.PermalinkPage // TODO: Hack, remove, but useful?
+      // index, page, post
+      p.Context = this.PageType
       return p
     })
 
-		if (this.IndexPage) {
-			this.Index = {}
-      this.Index.Posts = this.Posts
-			this.Index.Pagination = new Pagination(this.Pagination)
-		}
-
-		/** Content page **/
-		if (this.PermalinkPage) {
-			this.Content = {}
-      this.Content.Post = this.Posts[0]
-      // Pages don't have pagination
-      if (this.PermalinkPagination)
-        this.Content.Pagination = new Pagination(this.PermalinkPagination)
-		}
-
-    delete this.Pagination
-    delete this.IndexPage
+    if (this.Index) { this.Index.Posts = this.Posts }
+    if (this.Content) { this.Content.Post = this.Posts[0] }
     delete this.Posts
-    delete this.PermalinkPagination
-    delete this.PermalinkPage
-
-
   }
 }

@@ -1,4 +1,4 @@
-import lib from '../objlib.jsx'
+import lib from '../lib/obj.jsx'
 import React from 'react'
 
 class LikeButton extends React.Component {
@@ -11,7 +11,6 @@ class LikeButton extends React.Component {
     <div id={this.props.id}>
     </div>
   )}
-
 }
 
 export default class Post {
@@ -22,12 +21,14 @@ export default class Post {
     this.Tags = this.Tags && lib.obj2arr(this.Tags) || [];
     this.likebutton = lib.html_insert(this.LikeButton);
     this.reblogbutton = lib.html_insert(this.ReblogButton);
+    this.postNotes = lib.html_insert(this.PostNotes);
     this.testlike = <LikeButton
 			id={"like-" + this.PostID}
 			src={this.LikeButton}></LikeButton>
+
     delete this.LikeButton
     delete this.ReblogButton
-
+    delete this.PostNotes
     // Notes are sometimes null or false (database can't
     // calculate them fast enough)
     try { this.NoteCount = parseInt(this.NoteCount) }

@@ -1,14 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
-module.exports = (working_dir) => ({
+module.exports = working_dir => ({
   // devtool: 'source-map',
-  // target: 'node',
-  // externals: [nodeExternals()],
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
-    //path.join(working_dir, 'index.jsx')
     path.join(__dirname, 'index.jsx'),
   ],
   output: {
@@ -17,15 +15,19 @@ module.exports = (working_dir) => ({
     publicPath: '/static/',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    //new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [] // fix around bug in which postcss expetcs option file in project root
+      }
+    })
   ],
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loader: 'babel',
-      // include: __dirname,
+      loader: 'babel-loader',
       include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
       query: {
         presets: ["es2015", "stage-0", "react"],
@@ -34,8 +36,18 @@ module.exports = (working_dir) => ({
     },
     {
       test: /\.css$/,
-      loader: "style-loader!css-loader",
-      include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
+      loaders: ["style-loader", "css-loader"],
+      //include: [path.resolve(__dirname, '../'), path.join(working_dir, '.')],
     }]
   }
 })
+/*
+ {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss?sourceMap&sourceComments',
+        ],
+      },
+
+      */

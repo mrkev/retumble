@@ -1,6 +1,6 @@
 import React from 'react'
 import Post from './Post.jsx'
-import lib from '../objlib.jsx'
+import lib from '../lib/obj.jsx'
 
 export default class PostLink extends Post {
   constructor(props) {

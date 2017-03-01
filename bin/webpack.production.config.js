@@ -9,15 +9,14 @@ module.exports = working_dir => ({
     publicPath: '/static/',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.optimize.OccurrenceOrderPlugin(),
     // new webpack.optimize.UglifyJsPlugin(),
-    new webpack.NoErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
   ],
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loader: 'babel',
-      // include: __dirname,
+      loader: 'babel-loader',
       include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
       query: {
         presets: ["es2015", "stage-0", "react"],
@@ -26,8 +25,7 @@ module.exports = working_dir => ({
     {
       test: /\.css$/,
       loader: "style-loader!css-loader",
-      //include: __dirname,
-      include: [path.join(working_dir, '.')],
+      include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
     }]
   }
 })

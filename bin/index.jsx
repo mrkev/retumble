@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TumblrBlog from '../src/TumblrBlog.jsx'
+import Lang from '../src/Lang.jsx'
+
+let TumblrBlog = require('../src/TumblrBlog.jsx').default
 
 // Blog is loaded from target directory
-const Blog = require("val-loader!./includes.js").default
+let Blog = require("val-loader!./includes.js").default
 
 // Spur is available to the user
 window.Spur = require('../src/Spur.js').default
@@ -24,6 +26,7 @@ var urlParams; // http://stackoverflow.com/posts/2880929/revisions
 // Load the blog
 const place = _ => {
   if (!window.object) throw new Error("RIP")
+  window.Spur.lang = new Lang(window.object) // removes lang:* entries
   window.props = new TumblrBlog(window.object)
 
   console.log('rendering')
@@ -39,8 +42,8 @@ if (module.hot) {
   // Whenever a new version of App.js is available
   module.hot.accept(['val-loader!./includes.js', '../src/TumblrBlog.jsx'], () => {
     // Require the new version and render it instead
-    let TumblrBlog = require('../src/TumblrBlog.jsx')
-    let Blog = require('val-loader!./includes.js')
+    TumblrBlog = require('../src/TumblrBlog.jsx').default
+    Blog = require('val-loader!./includes.js').default
     place()
   })
 }

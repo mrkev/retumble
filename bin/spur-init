@@ -10,4 +10,13 @@ program
   .option('-i, --in-dir', 'not implemented')
   .parse(process.argv);
 
-copydir.sync(path.resolve(__dirname, '../node_modules/react-blank'), 'project')
+let target = 'project'
+if (program.inDir) {
+  target = '.'
+} else if (program.args) {
+  target = program.args[0]
+}
+
+copydir.sync(path.resolve(__dirname, '../node_modules/react-blank'), target)
+
+
