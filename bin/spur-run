@@ -13,6 +13,7 @@ const compiler      = webpack(config);
 const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const extract       = require('../src/lib/extract')
+const localhost     = require('ip').address()
 
 /** Program mcjiggs */
 
@@ -61,11 +62,11 @@ app // Route all requests to remote equivalent
     // TODO: Check if is /, if thats the case,
     // its a faulty interent connection
     console.log(` - no remote ${req.path}`)
- 
+
     return get_local(req.path)
   })
    /**
-    * If we fetched a themefile (from remote) 
+    * If we fetched a themefile (from remote)
     * we take its info and put it in the local
     * themefile.
     */
@@ -73,7 +74,7 @@ app // Route all requests to remote equivalent
     if (!extract.isTheme(file)) { return file }
     else {
       const middle = file && extract.t_string_from_html(file)
-        .replaceAll(remote_url, 'http://localhost:3000')
+        .replaceAll(remote_url, `http://${localhost}:3000`)
       return middle
         ? local_theme.revert(bobj_del, bobj_del, middle)
         : local_theme;
@@ -92,7 +93,7 @@ app // Route all requests to remote equivalent
 
 app.listen(3000, function () {
   console.log(`
-    Testing server listening on localhost:3000
+    Testing server listening on ${localhost}:3000 (localhost)
     > theme: ${themefile}
     > src: ${remote_url}
     `);
