@@ -4,6 +4,7 @@ const program       = require('commander');
 const get_remote    = require('request-promise');
 const copydir       = require('copy-dir');
 const path          = require('path');
+const execa = require('execa');
 
 program
   .usage('<options> [name]')
@@ -13,10 +14,19 @@ program
 let target = 'project'
 if (program.inDir) {
   target = '.'
-} else if (program.args) {
+} else if (program.args.length > 0) {
   target = program.args[0]
 }
 
 copydir.sync(path.resolve(__dirname, '../node_modules/react-blank'), target)
 
+execa(`cd`, [`${target}`])
+.then(x => {
+  console.log('installing')
+  const install = execa('npm', ['install'])
+  install.stdout.pipe(process.stdout)
+  install.stderr.pipe(process.stderr)
+  return install
+})
+.catch(console.error)
 

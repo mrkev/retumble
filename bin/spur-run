@@ -2,10 +2,9 @@
 
 const program       = require('commander');
 const express       = require('express');
-const fs            = require('fs');
+const fs            = require('fs-extra');
 const get_remote    = require('request-promise');
 const app           = express();
-const lib           = require('./lib/index');
 const path          = require('path');
 const webpack       = require('webpack');
 const config        = require('./webpack.config')(process.cwd())
@@ -13,17 +12,22 @@ const compiler      = webpack(config);
 const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const extract       = require('../src/lib/extract')
+const str           = require('../src/lib/string')
 const localhost     = require('ip').address()
+var cors = require('cors')
+app.use(cors())
+var tmp = require('tmp');
+
 
 /** Program mcjiggs */
 
 program
   .usage('<options> [index]')
-  .option('-s, --source [url]', 'Use custom remote source')
+  .option('-s, --source [path]', 'Use custom remote source')
   .parse(process.argv);
 
-const remote_url = program.source  || 'http://digi123.tumblr.com'
-const themefile  = program.args[0] || path.resolve(__dirname, 'index.html')
+const remote_url = program.args[0]  || 'http://digi123.tumblr.com'
+const themefile  = program.source || path.resolve(__dirname, 'index.html')
 
 /** Delimits the blog object in a react theme. */
 const bobj_del = '/*586f3690*/';
@@ -50,6 +54,24 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 
+const cache_file = path.join('.', 'cache.json')
+fs.ensureFileSync(cache_file)
+const cache = fs.readJsonSync(cache_file, {throws: false}) || {}
+const tmpobj = tmp.dirSync();
+
+const get_remote_memo = uri => {
+  if (!cache[uri]) return get_remote(uri)
+    .then(file => {
+      cache[uri] = file
+      return file
+    })
+  else {
+    console.log(' * Cache hit!')
+    fs.writeJsonSync(cache_file, cache)
+    return Promise.resolve(cache[uri])
+  }
+}
+
 app // Route all requests to remote equivalent
 .get(/.*/, function (req, res) {
   console.log(` > requested ${req.path}`)
@@ -57,7 +79,7 @@ app // Route all requests to remote equivalent
    * We fetch. If path exist on remote, we return
    * that, otherwise, we fall back to local files.
    */
-  get_remote(remote_url + req.path)
+  get_remote_memo(remote_url + req.path)
   .catch(e => {
     // TODO: Check if is /, if thats the case,
     // its a faulty interent connection
@@ -73,10 +95,11 @@ app // Route all requests to remote equivalent
   .then(file => {
     if (!extract.isTheme(file)) { return file }
     else {
-      const middle = file && extract.t_string_from_html(file)
-        .replaceAll(remote_url, `http://${localhost}:3000`)
+      const middle = file && str.replaceAll(
+        extract.t_string_from_html(file),
+        remote_url, `http://${localhost}:8080`)
       return middle
-        ? local_theme.revert(bobj_del, bobj_del, middle)
+        ? str.revert(local_theme, bobj_del, bobj_del, middle)
         : local_theme;
     }
   })
@@ -91,9 +114,9 @@ app // Route all requests to remote equivalent
   })
 })
 
-app.listen(3000, function () {
+app.listen(8080, function () {
   console.log(`
-    Testing server listening on ${localhost}:3000 (localhost)
+    Testing server listening on ${localhost}:4410 (localhost)
     > theme: ${themefile}
     > src: ${remote_url}
     `);

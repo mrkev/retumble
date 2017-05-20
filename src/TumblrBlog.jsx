@@ -11,8 +11,9 @@ import Pagination from './part/Pagination.jsx'
 import lib from './lib/obj.jsx'
 
 export default class TumblrBlog {
-  constructor(props) {
+  constructor(props, options) {
     Object.keys(props).forEach(k => this[k] = props[k])
+    console.log('opts', options)
 
     /** Portrait **/
     this.portrait = (function (size) {
@@ -82,7 +83,8 @@ export default class TumblrBlog {
     const index = !!this.Index
     const perma = !!this.Content
 
-    this.HomePage = this.Index && this.Index.Pagination.CurrentPage === 1 // todo; nicer. rework pagination
+    this.HomePage = this.Index && this.Index.Pagination.CurrentPage === 1
+
     this.PageType =
       (index) ? 'index' :
       (perma && this.Content.Pagination) ? 'post'

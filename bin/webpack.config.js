@@ -1,9 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+//const NpmInstallPlugin = require('npm-install-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 module.exports = working_dir => ({
-  // devtool: 'source-map',
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
@@ -16,8 +18,18 @@ module.exports = working_dir => ({
   },
   plugins: [
     //new webpack.optimize.OccurrenceOrderPlugin(),
+    new ProgressBarPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+//    new NpmInstallPlugin({
+//      dev: function(module, path) {
+//        return [
+//          "babel-preset-react-hmre",
+//          "webpack-dev-middleware",
+//          "webpack-hot-middleware",
+//        ].indexOf(module) !== -1;
+//      },
+//    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [] // fix around bug in which postcss expetcs option file in project root

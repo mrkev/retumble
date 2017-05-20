@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Lang from '../src/Lang.jsx'
+import Helmet from 'react-helmet'
 
 let TumblrBlog = require('../src/TumblrBlog.jsx').default
 
@@ -24,14 +25,21 @@ var urlParams; // http://stackoverflow.com/posts/2880929/revisions
 })();
 
 // Load the blog
-const place = _ => {
+const place = () => {
   if (!window.object) throw new Error("RIP")
   window.Spur.lang = new Lang(window.object) // removes lang:* entries
-  window.props = new TumblrBlog(window.object)
+  window.props = new TumblrBlog(window.object, Blog.options)
 
   console.log('rendering')
   ReactDOM.render(
-    <Blog {... props} />,
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>My Title</title>
+      </Helmet>
+      <Blog {... props} />
+    </div>
+    ,
     document.getElementById('blog')
   );
 }

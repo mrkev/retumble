@@ -21,7 +21,7 @@ export default class Post {
     this.Tags = this.Tags && lib.obj2arr(this.Tags) || [];
     this.likebutton = lib.html_insert(this.LikeButton);
     this.reblogbutton = lib.html_insert(this.ReblogButton);
-    this.postNotes = lib.html_insert(this.PostNotes);
+    this.postNotes = lib.html_insert(this.PostNotes); // todo null on permalink?
     this.testlike = <LikeButton
 			id={"like-" + this.PostID}
 			src={this.LikeButton}></LikeButton>

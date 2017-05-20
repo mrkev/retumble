@@ -1,5 +1,6 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 module.exports = working_dir => ({
   entry: path.join(__dirname, 'index.jsx'),
@@ -9,6 +10,7 @@ module.exports = working_dir => ({
     publicPath: '/static/',
   },
   plugins: [
+    new ProgressBarPlugin()
     // new webpack.optimize.OccurrenceOrderPlugin(),
     // new webpack.optimize.UglifyJsPlugin(),
     // new webpack.NoEmitOnErrorsPlugin(),

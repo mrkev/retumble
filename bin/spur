@@ -4,7 +4,7 @@ var program = require('commander');
 
 program
   .command('init',  'Initializes a new blank theme')
-  .command('run',   'Runs a testserver to test a theme')
+  .command('run',   'Runs a test server to test a theme')
   .command('ready', 'Generates bundle file to publish theme')
 
 program.parse(process.argv);
