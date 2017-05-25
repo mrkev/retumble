@@ -1,5 +1,6 @@
 import Drawer from "react-motion-drawer";
 import React, { Component } from "react";
+import Spur from '../Spur.js'
 
 require('./PostNotes.css')
 
