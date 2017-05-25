@@ -8,9 +8,6 @@ let TumblrBlog = require('../src/TumblrBlog.jsx').default
 // Blog is loaded from target directory
 let Blog = require("val-loader!./includes.js").default
 
-// Spur is available to the user
-window.Spur = require('../src/Spur.js').default
-
 // Parse URL params
 var urlParams; // http://stackoverflow.com/posts/2880929/revisions
 (window.onpopstate = function () {
@@ -27,7 +24,7 @@ var urlParams; // http://stackoverflow.com/posts/2880929/revisions
 // Load the blog
 const place = () => {
   if (!window.object) throw new Error("RIP")
-  window.Spur.lang = new Lang(window.object) // removes lang:* entries
+  window.lang = new Lang(window.object) // removes lang:* entries
   window.props = new TumblrBlog(window.object, Blog.options)
 
   console.log('rendering')
