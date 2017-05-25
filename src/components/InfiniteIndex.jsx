@@ -2,7 +2,7 @@ import React from 'react'
 import lib from '../lib/obj.jsx'
 import 'whatwg-fetch' // For getting next pages
 import ProgressButton from 'react-progress-button'
-import Waypoint from '../../node_modules/react-waypoint/build/waypoint.js'
+import Waypoint from 'react-waypoint'
 import { getPage } from '../lib/extract.js'
 require("./react-progress-button.css")
 
