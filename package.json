@@ -5,6 +5,7 @@
   "bin": {
     "spur": "bin/spur"
   },
+  "main": "src/Spur.js",
   "scripts": {
     "test": "ava"
   },
@@ -41,6 +42,7 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-motion-drawer": "^2.1.5",
     "react-progress-button": "^5.0.3",
+    "react-redux": "^5.0.5",
     "react-toolbox": "^2.0.0-beta.6",
     "react-waypoint": "^7.0.3",
     "redux": "^3.6.0",
