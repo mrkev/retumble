@@ -4,12 +4,11 @@ const program       = require('commander');
 const get_remote    = require('request-promise');
 const copydir       = require('copy-dir');
 const path          = require('path');
-const execa = require('execa');
-const fs = require('fs');
-const download = require('download');
-var tmp = require('tmp');
-var unzip = require('unzip')
-var dirCopy = require('directory-copy')
+const execa         = require('execa');
+const fs            = require('fs');
+const download      = require('download');
+const tmp           = require('tmp');
+const unzip         = require('unzip');
 
 
 program
@@ -28,16 +27,17 @@ let source = path.join(__dirname, '../node_modules/react-blank')
 var tmpobj = tmp.dirSync();
 console.log("Dir: ", tmpobj.name);
 
- 
 download('https://github.com/mrkev/react-blank/archive/master.zip', tmpobj.name)
 .then(() => {
+  
   fs
   .createReadStream(tmpobj.name + '/react-blank-master.zip')
   .pipe(unzip.Extract({ path: tmpobj.name }))
 
   setTimeout(() => {
     const src = path.join(tmpobj.name, '/react-blank-master')
-    dirCopy({ src, dest: target }, () => console.log('done!'))
+    copydir.sync(src, target)
+    console.log('done!')
   }, 1000)
 })
 .catch(console.error)

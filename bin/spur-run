@@ -6,18 +6,11 @@ const fs            = require('fs-extra');
 const get_remote    = require('request-promise');
 const app           = express();
 const path          = require('path');
-const webpack       = require('webpack');
-const config        = require('./webpack.config')(process.cwd())
-const compiler      = webpack(config);
-const devMiddleware = require('webpack-dev-middleware');
-const hotMiddleware = require('webpack-hot-middleware');
 const extract       = require('../src/lib/extract')
 const str           = require('../src/lib/string')
 const localhost     = require('ip').address()
-var cors = require('cors')
-app.use(cors())
-var tmp = require('tmp');
-
+const cors          = require('cors')
+const tmp           = require('tmp');
 
 /** Program mcjiggs */
 
@@ -45,6 +38,10 @@ const local_theme = fs.readFileSync(themefile, 'utf8')
 
 /** Webpack mcjiggs */
 
+const webpack       = require('webpack');
+const config        = require('./webpack.config')(process.cwd())
+const compiler      = webpack(config);
+
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
   noInfo: true,
@@ -53,6 +50,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+
+/** Server mcjiggs */
 
 const cache_file = path.join('.', 'cache.json')
 fs.ensureFileSync(cache_file)
@@ -113,6 +112,8 @@ app // Route all requests to remote equivalent
     res.status(404).send('Not found')
   })
 })
+
+app.use(cors())
 
 app.listen(8080, function () {
   console.log(`

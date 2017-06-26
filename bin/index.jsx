@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import Lang from '../src/Lang.jsx'
 import Helmet from 'react-helmet'
 
+console.log('here')
+
 let TumblrBlog = require('../src/TumblrBlog.jsx').default
 let Blog = require("val-loader!./includes.js").default
 
