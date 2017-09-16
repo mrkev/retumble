@@ -5,34 +5,27 @@ const get_remote    = require('request-promise');
 const copydir       = require('copy-dir');
 const path          = require('path');
 const execa         = require('execa');
-const fs            = require('fs');
+const fs            = require('fs-extra');
 const download      = require('download');
 const tmp           = require('tmp');
 const unzip         = require('unzip');
 
-
 program
   .usage('<options> [name]')
-  .option('-i, --in-dir', 'not implemented')
   .parse(process.argv);
 
-let target = 'project'
-if (program.inDir) {
-  target = '.'
-} else if (program.args.length > 0) {
-  target = program.args[0]
-}
+const target = (program.args.length > 0) ? program.args[0] : 'project'
+const tmpobj = tmp.dirSync();
 
-let source = path.join(__dirname, '../node_modules/react-blank')
-var tmpobj = tmp.dirSync();
-console.log("Dir: ", tmpobj.name);
+if (fs.pathExistsSync(target)) {
+  console.log(`"${target}" already exists! Aborting.`)
+  process.exit(1)
+}
 
 download('https://github.com/mrkev/react-blank/archive/master.zip', tmpobj.name)
 .then(() => {
-  
-  fs
-  .createReadStream(tmpobj.name + '/react-blank-master.zip')
-  .pipe(unzip.Extract({ path: tmpobj.name }))
+  fs.createReadStream(tmpobj.name + '/react-blank-master.zip')
+    .pipe(unzip.Extract({ path: tmpobj.name }))
 
   setTimeout(() => {
     const src = path.join(tmpobj.name, '/react-blank-master')
@@ -41,16 +34,3 @@ download('https://github.com/mrkev/react-blank/archive/master.zip', tmpobj.name)
   }, 1000)
 })
 .catch(console.error)
-
-// copydir.sync(source, target)
-
-// execa(`cd`, [`${target}`])
-// .then(x => {
-//   console.log('installing')
-//   const install = execa('npm', ['install'])
-//   install.stdout.pipe(process.stdout)
-//   install.stderr.pipe(process.stderr)
-//   return install
-// })
-// .catch(console.error)
-

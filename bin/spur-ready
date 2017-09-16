@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-const fs            = require('fs')
-const path 					= require('path')
+const fs = require('fs-extra');
+const path          = require('path')
 const program       = require('commander')
+const webpack       = require('webpack');
+const config        = require('./webpack.production.config')(process.cwd());
+const compiler      = webpack(config);
 
 program
   .usage('[package.json]')
@@ -10,11 +13,6 @@ program
   .parse(process.argv)
 
 /** Compile the bundle */
-
-const webpack       = require('webpack');
-const config        = require('./webpack.production.config')(process.cwd());
-const compiler      = webpack(config);
-
 
 const main = new Promise((res, rej) => {
 

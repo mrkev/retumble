@@ -13,15 +13,19 @@ Or clone this repo, and `npm link` it.
 
 ## Create a new theme
 
-`spur init`
+```
+spur init tumblr-react-new
+cd tumblr-react-new
+npm install
+```
 
-Ez.
+This creates a new project called `project`. Ez.
 
 ## Test a theme locally
 
 `spur run`
 
-This will load data from a default sample blog. To use custom test data, use
+When ran from the root of the project, this will load data from a default sample blog. To use custom test data, use
 
 `spur run --source http://<somespurblog>.tumblr.com/`
 
