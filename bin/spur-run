@@ -12,29 +12,50 @@ const localhost     = require('ip').address()
 const cors          = require('cors')
 const tmp           = require('tmp');
 
+/** Constants */
+
+const DELIMITER = '/*586f3690*/';
+
 /** Program mcjiggs */
 
 program
   .usage('<options> [index]')
-  .option('-s, --source [path]', 'Use custom remote source')
+  .option('-p, --port [number]', 'Use custom port number', 8080)
+  .option('--debug', 'Use higher log-level')
   .parse(process.argv);
 
-const remote_url = program.args[0]  || 'http://digi123.tumblr.com'
-const themefile  = program.source || path.resolve(__dirname, 'index.html')
+/**
+ * url of remote blog to use as sample data
+ * NOTE: it must be using a spur theme to work
+ */
+const remote_url = program.args[0] || 'http://digi123.tumblr.com'
+
+/** port to server from */
+const port = program.port;
+
+/** HTML Theme skeleton  */
+const local_theme = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8')
+
+/** Locantion to place the cache.json */
+const cache_file = path.join('.', 'cache.json')
+
+/** Cutom log function to handle debug logging */
+const console_log = !program.debug ? (() => { }) : console.log;
+
+
+const tmpobj = tmp.dirSync();
+const cache = fs.readJsonSync(cache_file, { throws: false }) || {}
 
 /** Delimits the blog object in a react theme. */
-const bobj_del = '/*586f3690*/';
 
 /** Gets local file */
 const get_local = url => new Promise((res, rej) => {
-  console.log('   * getting local', url)
+  console_log('   * getting local', url)
   fs.readFile(url, 'utf8', (err, data) => {
     if (err) rej(err)
     else res(data)
   })
 })
-
-const local_theme = fs.readFileSync(themefile, 'utf8')
 
 /** Webpack mcjiggs */
 
@@ -50,13 +71,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+fs.ensureFileSync(cache_file)
 
 /** Server mcjiggs */
-
-const cache_file = path.join('.', 'cache.json')
-fs.ensureFileSync(cache_file)
-const cache = fs.readJsonSync(cache_file, {throws: false}) || {}
-const tmpobj = tmp.dirSync();
 
 const get_remote_memo = uri => {
   if (!cache[uri]) return get_remote(uri)
@@ -65,7 +82,7 @@ const get_remote_memo = uri => {
       return file
     })
   else {
-    console.log(' * Cache hit!')
+    console_log(' * Cache hit!')
     fs.writeJsonSync(cache_file, cache)
     return Promise.resolve(cache[uri])
   }
@@ -73,7 +90,7 @@ const get_remote_memo = uri => {
 
 app // Route all requests to remote equivalent
 .get(/.*/, function (req, res) {
-  console.log(` > requested ${req.path}`)
+  console_log(` > requested ${req.path}`)
   /**
    * We fetch. If path exist on remote, we return
    * that, otherwise, we fall back to local files.
@@ -82,7 +99,7 @@ app // Route all requests to remote equivalent
   .catch(e => {
     // TODO: Check if is /, if thats the case,
     // its a faulty interent connection
-    console.log(` - no remote ${req.path}`)
+    console_log(` - no remote ${req.path}`)
 
     return get_local(req.path)
   })
@@ -96,14 +113,14 @@ app // Route all requests to remote equivalent
     else {
       const middle = file && str.replaceAll(
         extract.t_string_from_html(file),
-        remote_url, `http://${localhost}:8080`)
+        remote_url, `http://${localhost}:${port}`)
       return middle
-        ? str.revert(local_theme, bobj_del, bobj_del, middle)
+        ? str.revert(local_theme, DELIMITER, DELIMITER, middle)
         : local_theme;
-    }
+    }a
   })
   .then(r => {
-    console.log(` v returning something for ${req.path}`)
+    console_log(` v returning something for ${req.path}`)
     res.type('html');
     res.send(r);
   })
@@ -115,11 +132,9 @@ app // Route all requests to remote equivalent
 
 app.use(cors())
 
-app.listen(8080, function () {
+app.listen(port, function () {
   console.log(`
-    Testing server listening on ${localhost}:4410 (localhost)
-    > theme: ${themefile}
+    Testing server listening on http://${localhost}:${port} (localhost)
     > src: ${remote_url}
     `);
 });
-
