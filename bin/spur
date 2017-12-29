@@ -3,8 +3,8 @@
 var program = require('commander');
 
 program
-  .command('init',  'Initializes a new blank theme')
-  .command('run',   'Runs a test server to test a theme')
-  .command('ready', 'Generates bundle file to publish theme')
+  .command('init',  'initializes a new blank theme')
+  .command('run',   'runs a test server to test a theme')
+  .command('ready', 'generates bundle file to publish theme')
 
 program.parse(process.argv);

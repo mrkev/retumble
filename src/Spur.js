@@ -10,5 +10,5 @@ export default {
   getPage,
   InfiniteIndex,
   PostNotes,
-  lang,
+  Strings: lang,
 }

@@ -35,7 +35,9 @@ Where `<somespurblog>` is a Tumblr blog that is using a spur theme. No, if you p
 
 ### Use a theme on tumblr.com
 
-`spur ready | pbcopy` (On macOS, use linux/windows own clipboard commands if that's what you're on)
+`spur ready | pbcopy`
+
+(^ On macOS, use linux/windows own clipboard commands if that's what you're on)
 
 The `ready` command will dump the theme nicely packaged in some HTML. Paste this on your "custom html" customization option as you would with any other theme file.
 

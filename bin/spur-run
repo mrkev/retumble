@@ -14,7 +14,7 @@ const tmp           = require('tmp');
 
 /** Constants */
 
-const DELIMITER = '/*586f3690*/';
+const DELIMITER = '/*b60572a8-ec4e-11e7-813f-f3216482b08a*/';
 
 /** Program mcjiggs */
 
@@ -28,7 +28,7 @@ program
  * url of remote blog to use as sample data
  * NOTE: it must be using a spur theme to work
  */
-const remote_url = program.args[0] || 'http://digi123.tumblr.com'
+const remote_url = program.args[0] || 'http://spursome.tumblr.com'
 
 /** port to server from */
 const port = program.port;
@@ -42,8 +42,6 @@ const cache_file = path.join('.', 'cache.json')
 /** Cutom log function to handle debug logging */
 const console_log = !program.debug ? (() => { }) : console.log;
 
-
-const tmpobj = tmp.dirSync();
 const cache = fs.readJsonSync(cache_file, { throws: false }) || {}
 
 /** Delimits the blog object in a react theme. */
@@ -114,9 +112,10 @@ app // Route all requests to remote equivalent
       const middle = file && str.replaceAll(
         extract.t_string_from_html(file),
         remote_url, `http://${localhost}:${port}`)
-      return middle
+      const res = middle
         ? str.revert(local_theme, DELIMITER, DELIMITER, middle)
         : local_theme;
+      return res
     }a
   })
   .then(r => {

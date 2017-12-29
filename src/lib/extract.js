@@ -1,6 +1,6 @@
 
 const str = require('./string')
-
+const DELIMITER = '/*b60572a8-ec4e-11e7-813f-f3216482b08a*/';
 /** Delimits the blog object in a react theme. */
 const bobj_del         = `/*${586}` + 'f3690*/';
 /** Identifies a react theme. All react themes should include this. */
@@ -16,7 +16,7 @@ const t_objt_from_string = function (s) {
 
 const t_string_from_html = function (file) {
   if (!isTheme(file)) { return null }
-  else return str.between(file, bobj_del, bobj_del)
+  else return str.between(file, DELIMITER, DELIMITER)
 }
 
 const getPage = page => {
