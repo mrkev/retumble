@@ -13,7 +13,6 @@ import lib from './lib/obj.jsx'
 export default class TumblrBlog {
   constructor(props, options) {
     Object.keys(props).forEach(k => this[k] = props[k])
-    console.log('opts', options)
 
     /** Portrait **/
     this.portrait = (function (size) {
