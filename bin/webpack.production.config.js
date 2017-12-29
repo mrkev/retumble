@@ -41,7 +41,7 @@ module.exports = working_dir => {
         loader: 'babel-loader',
         include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
         query: {
-          presets: ["es2015", "stage-0", "react"],
+          presets: ["env", "stage-0", "react"],
         },
       },
       {

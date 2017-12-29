@@ -37,7 +37,7 @@ const port = program.port;
 const local_theme = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8')
 
 /** Locantion to place the cache.json */
-const cache_file = path.join('.', 'cache.json')
+const cache_file = path.join('.spur', 'cache.json')
 
 /** Cutom log function to handle debug logging */
 const console_log = !program.debug ? (() => { }) : console.log;
@@ -124,7 +124,7 @@ app // Route all requests to remote equivalent
     res.send(r);
   })
   .catch(x => {
-    console.error(x)
+    if (x.code !== 'ENOENT') console.error(x)
     res.status(404).send('Not found')
   })
 })
