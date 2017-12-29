@@ -4,9 +4,18 @@
  */
 
 /** ssaxxxbss -> xxx */
-const between = function (s, a, b) {
+const between = function (s, a, b, opts) {
   if (!b) b = a
-  return s.substring(s.indexOf(a) + a.length, s.lastIndexOf(b))
+  if (opts.min) {
+    // min substring
+    const noStart = s.substring(s.indexOf(a) + a.length)
+    return noStart.substring(0, noStart.indexOf(b))
+  } else {
+    // max substring
+    return s.substring(
+      s.indexOf(a) + a.length,
+      s.lastIndexOf(b))
+  }
 };
 
 /** ssaxxxbss -> sscss */
@@ -18,7 +27,6 @@ const subvert = function (s, a, b, c) {
 const revert = function(s, a, b, c) {
   return s.substring(0, s.indexOf(a)) + a + c + b + s.substring(s.lastIndexOf(b) + b.length)
 };
-
 
 /* String -> RegExp String, for a RegExp that would match that string */
 const escapeRegExp = function (s) {

@@ -1,6 +1,6 @@
 import Drawer from "react-motion-drawer";
 import React, { Component } from "react";
-import Spur from '../Spur.js'
+import { Strings } from '../Spur.js'
 
 require('./PostNotes.css')
 
@@ -61,7 +61,7 @@ export default class PostNotes extends Component {
 
           <a href={"javascript:void(0);"}
             onClick={this.getPostNotes.bind(this)}>
-            {Spur.lang['Notes']}</a>
+            {Strings['Notes']}</a>
       </span>
     );
   }

@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import Lang from '../src/Lang.jsx'
 import Helmet from 'react-helmet'
 
-console.log('here')
-
 let TumblrBlog = require('../src/TumblrBlog.jsx').default
 let Blog = require("val-loader!./includes.js").default
 
@@ -13,8 +11,6 @@ const place = () => {
   if (!window.object) throw new Error("RIP")
   window.lang = new Lang(window.object) // removes lang:* entries
   window.props = new TumblrBlog(window.object, Blog.options)
-
-  console.log('rendering')
 
   ReactDOM.render(
     <div>
