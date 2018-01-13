@@ -8,7 +8,6 @@ const app           = express();
 const path          = require('path');
 const extract       = require('../src/lib/extract')
 const str           = require('../src/lib/string')
-const localhost     = require('ip').address()
 const cors          = require('cors')
 const tmp           = require('tmp');
 
@@ -28,7 +27,7 @@ program
  * url of remote blog to use as sample data
  * NOTE: it must be using a retumble theme to work
  */
-const remote_url = program.args[0] || 'http://spursome.tumblr.com'
+const remote_url = program.args[0] || 'http://retumblesome.tumblr.com'
 
 /** port to server from */
 const port = program.port;
@@ -46,7 +45,7 @@ const cache = fs.readJsonSync(cache_file, { throws: false }) || {}
 
 /** Print this here so it doesn't interfere with the webpack progress bar */
 console.log(`
-    Testing server to go on on http://${localhost}:${port} (localhost)
+    Testing server to go on on http://localhost:${port}
     > src: ${remote_url}
     `);
 
@@ -116,7 +115,7 @@ app // Route all requests to remote equivalent
     else {
       const middle = file && str.replaceAll(
         extract.t_string_from_html(file),
-        remote_url, `http://${localhost}:${port}`)
+        remote_url, `http://localhost:${port}`)
       const res = middle
         ? str.revert(local_theme, DELIMITER, DELIMITER, middle)
         : local_theme;
@@ -138,7 +137,7 @@ app.use(cors())
 
 app.listen(port, function (error) {
   if (error) {
-    console.log(`Can't listen on http://${localhost}:${port} (localhost)`)
+    console.log(`Can't listen on http://localhost:${port}`)
     console.log('Exiting...')
     process.exit(1)
   }
