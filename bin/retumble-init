@@ -14,7 +14,7 @@ program
   .usage('<options> [name]')
   .parse(process.argv);
 
-const target = (program.args.length > 0) ? program.args[0] : 'project'
+const target = (program.args.length > 0) ? program.args[0] : 'retumble-untitled'
 const tmpobj = tmp.dirSync();
 
 if (fs.pathExistsSync(target)) {
@@ -22,13 +22,13 @@ if (fs.pathExistsSync(target)) {
   process.exit(1)
 }
 
-download('https://github.com/mrkev/react-blank/archive/master.zip', tmpobj.name)
+download('https://github.com/mrkev/retumble-blank/archive/master.zip', tmpobj.name)
 .then(() => {
-  fs.createReadStream(tmpobj.name + '/react-blank-master.zip')
+  fs.createReadStream(tmpobj.name + '/retumble-blank-master.zip')
     .pipe(unzip.Extract({ path: tmpobj.name }))
 
   setTimeout(() => {
-    const src = path.join(tmpobj.name, '/react-blank-master')
+    const src = path.join(tmpobj.name, '/retumble-blank-master')
     copydir.sync(src, target)
     console.log('done!')
   }, 1000)
