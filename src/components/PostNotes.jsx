@@ -1,6 +1,6 @@
 import Drawer from "react-motion-drawer";
 import React, { Component } from "react";
-import { Strings } from '../Spur.js'
+import { Strings } from '../Retumble.js'
 
 require('./PostNotes.css')
 

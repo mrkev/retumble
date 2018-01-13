@@ -5,10 +5,10 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 module.exports = working_dir => {
 
   const working_dir_modules = path.resolve("node_modules")
-  const spur_modules = path.resolve(path.join(__dirname, '../node_modules'))
+  const retumble_modules = path.resolve(path.join(__dirname, '../node_modules'))
   const modules = [
-    // Spur's node_modules
-    spur_modules,
+    // Retumble's node_modules
+    retumble_modules,
 
     // Blog's node_modules
     working_dir_modules,
@@ -34,20 +34,6 @@ module.exports = working_dir => {
       publicPath: '/static/',
     },
 
-  // devServer: {
-  //   // host: 'localhost',
-  //   // port: 3000,
-
-  //   publicPath: config.output.publicPath,
-  //   noInfo: true,
-
-  //   historyApiFallback: true,
-  //   // respond to 404s with index.html
-
-  //   hot: true,
-  //   // enable HMR on the server
-  // },
-
     plugins: [
 
       // Show compilation progress bar
@@ -70,7 +56,6 @@ module.exports = working_dir => {
       })
     ],
 
-
     module: {
       loaders: [{
         test: /\.jsx?$/,
@@ -78,6 +63,7 @@ module.exports = working_dir => {
         include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
         query: {
           presets: [
+            require.resolve('babel-preset-flow'),
             require.resolve('babel-preset-env'),
             require.resolve('babel-preset-react'),
             require.resolve('babel-preset-stage-0'),

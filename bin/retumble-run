@@ -26,7 +26,7 @@ program
 
 /**
  * url of remote blog to use as sample data
- * NOTE: it must be using a spur theme to work
+ * NOTE: it must be using a retumble theme to work
  */
 const remote_url = program.args[0] || 'http://spursome.tumblr.com'
 
@@ -37,14 +37,18 @@ const port = program.port;
 const local_theme = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8')
 
 /** Locantion to place the cache.json */
-const cache_file = path.join('.spur', 'cache.json')
+const cache_file = path.join('.retumble', 'cache.json')
 
 /** Cutom log function to handle debug logging */
 const console_log = !program.debug ? (() => { }) : console.log;
 
 const cache = fs.readJsonSync(cache_file, { throws: false }) || {}
 
-/** Delimits the blog object in a react theme. */
+/** Print this here so it doesn't interfere with the webpack progress bar */
+console.log(`
+    Testing server to go on on http://${localhost}:${port} (localhost)
+    > src: ${remote_url}
+    `);
 
 /** Gets local file */
 const get_local = url => new Promise((res, rej) => {
@@ -132,9 +136,10 @@ app // Route all requests to remote equivalent
 
 app.use(cors())
 
-app.listen(port, function () {
-  console.log(`
-    Testing server listening on http://${localhost}:${port} (localhost)
-    > src: ${remote_url}
-    `);
+app.listen(port, function (error) {
+  if (error) {
+    console.log(`Can't listen on http://${localhost}:${port} (localhost)`)
+    console.log('Exiting...')
+    process.exit(1)
+  }
 });

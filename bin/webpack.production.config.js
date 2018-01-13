@@ -5,10 +5,10 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 module.exports = working_dir => {
 
   const working_dir_modules = path.resolve("node_modules")
-  const spur_modules = path.resolve(path.join(__dirname, '../node_modules'))
+  const retumble_modules = path.resolve(path.join(__dirname, '../node_modules'))
   const modules = [
-    // Spur's node_modules
-    spur_modules,
+    // Retumble's node_modules
+    retumble_modules,
 
     // Blog's node_modules
     working_dir_modules,

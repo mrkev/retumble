@@ -6,7 +6,7 @@ const file = path.join(process.cwd(), theme_pkg.main);
 
 module.exports = function () {
   return { code: `
-console.log('~ spur web ~');
+console.log('~ retumble web ~');
 module.exports = require('${file}')
 `
 }}

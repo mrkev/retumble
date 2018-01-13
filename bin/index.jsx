@@ -1,3 +1,6 @@
+// @flow
+/** The main run-time entry point */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Lang from '../src/Lang.jsx'
@@ -12,16 +15,19 @@ const place = () => {
   window.lang = new Lang(window.object) // removes lang:* entries
   window.props = new TumblrBlog(window.object, Blog.options)
 
+  const entry = document.getElementById('blog')
+  if (!entry) throw new Error("No entry DOM element.")
+
   ReactDOM.render(
     <div>
       <Helmet>
         <meta charSet="utf-8" />
         <title>My Title</title>
       </Helmet>
-      <Blog {... props} />
+      <Blog {... window.props} />
     </div>
     ,
-    document.getElementById('blog')
+    entry
   );
 }
 

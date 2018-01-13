@@ -1,5 +1,5 @@
 
-# Spur
+# Retumble
 
 Build Tumblr themes with React. Test them on localhost.
 
@@ -9,14 +9,14 @@ Build Tumblr themes with React. Test them on localhost.
 
 ### Install
 
-`npm -g i spur`
+`npm -g i retumble`
 
 Or clone this repo, and `npm link` it.
 
 ### Create a new theme
 
 ```
-spur init tumblr-react-new
+retumble init tumblr-react-new
 cd tumblr-react-new
 npm install
 ```
@@ -25,17 +25,17 @@ This creates a new project called `project`. Ez.
 
 ### Test a theme locally
 
-`spur run`
+`retumble run`
 
 When ran from the root of the project, this will load data from a default sample blog. To use custom test data, use
 
-`spur run --source http://<somespurblog>.tumblr.com/`
+`retumble run --source http://<some retumble blog>.tumblr.com/`
 
-Where `<somespurblog>` is a Tumblr blog that is using a spur theme. No, if you point it at just some random blog this wont work; the blog needs to be running a spur theme.
+Where `<some retumble blog>` is a Tumblr blog that is using a retumble theme. No, if you point it at just some random blog this wont work; the blog needs to be running a retumble theme.
 
 ### Use a theme on tumblr.com
 
-`spur ready | pbcopy`
+`retumble ready | pbcopy`
 
 (^ On macOS, use linux/windows own clipboard commands if that's what you're on)
 
@@ -53,7 +53,7 @@ There's a few cool extras I implement so you don't have to.
 - A drawer for notes
 - Resizable music player
 
-Documentation coming I guess? You can also check the auto-generated project built with `spur init` to check out usage.
+Documentation coming I guess? You can also check the auto-generated project built with `retumble init` to check out usage.
 
 ## Limitations
 
@@ -66,3 +66,24 @@ Reblog, Like, etc.
 #### Not all tumblr "theme tags" are incorporated
 
 More will be coming, open an issue if you have any requests
+
+#### Bugs
+
+Open an issue!
+
+
+
+
+
+
+### API
+
+1. The default export of the `"main"` script of a package should be a React component.
+
+This component will be called with a `props` object containing all the information about the tumblr blog. From here is on to you, do whatever you want with it!
+
+1.
+
+
+##### Pages
+
