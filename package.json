@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrkev/spur.git"
+    "url": "git+https://github.com/mrkev/retumble.git"
   },
   "author": "Kevin Chavez <keh222@cornell.edu> (http://thatkevin.tk)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mrkev/spur/issues"
+    "url": "https://github.com/mrkev/retumble/issues"
   },
-  "homepage": "https://github.com/mrkev/spur#readme",
+  "homepage": "https://github.com/mrkev/retumble#readme",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
