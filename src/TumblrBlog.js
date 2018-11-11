@@ -6,6 +6,7 @@ import { postAudio } from "./post/PostAudio";
 import { postVideo } from "./post/PostVideo";
 import { postPhoto } from "./post/PostPhoto";
 import { pagination } from "./part/Pagination.jsx";
+import semver from "semver";
 import lib from "./lib/obj.jsx";
 
 export type Page = {
@@ -158,6 +159,8 @@ function assignPagination(blog: Blog, props: RawProps) {
 }
 
 export default function tumblrBlog(props: RawProps, options: Object) {
+  // const serverVersion = props._retumble.htmlVersion;
+
   const blog = {};
   assignIdentity(blog, props);
   assignPages(blog, props);

@@ -25,7 +25,7 @@ program
 function getRemoteURL() {
   let url = program.args[0];
   if (!url) {
-    return "http://retumblesome.tumblr.com";
+    return "http://retumble-example.tumblr.com";
   }
   if (!/^https?:\/\//.test(url)) {
     url = "http://" + url;
@@ -44,7 +44,7 @@ const port = program.port;
 
 /** HTML Theme skeleton  */
 const local_theme = fs.readFileSync(
-  path.resolve(__dirname, "index.html"),
+  path.resolve(__dirname, "../lib/index.html"),
   "utf8"
 );
 
@@ -78,7 +78,7 @@ const get_local = url =>
 
 const webpack = require("webpack");
 const middleware = require("webpack-dev-middleware");
-const config = require("./webpack.config")(process.cwd());
+const config = require("../lib/webpack.config")(process.cwd());
 const compiler = webpack(config);
 
 app.use(
@@ -111,11 +111,11 @@ request(remoteURL)
     console.error(`To use ${remoteURL} as the data source for testing,`);
     console.error("it needs to be a valid retumble blog.");
     console.error("Try installing a retumble theme on it, or use the");
-    console.error("default: http://retumblesome.tumblr.com");
+    console.error("default: http://retumble-example.tumblr.com");
     console.error("Aborting...");
     process.exit(0);
   });
-// TODO: test retumble version here.
+// retumble semver test is done in the client.
 
 //////////////////////////////////////////////////////////////////////// ROUTING
 
