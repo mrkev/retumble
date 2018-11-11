@@ -1,9 +1,8 @@
-
 # Retumble
 
 Build Tumblr themes with React. Test them on localhost.
 
-*NOTE: this is very much an experiment. It works, but run any mission-critical blogs at your own risk*
+_NOTE: this is very much an experiment. It works, but run any mission-critical blogs at your own risk_
 
 ## Getting started
 
@@ -71,11 +70,6 @@ More will be coming, open an issue if you have any requests
 
 Open an issue!
 
-
-
-
-
-
 ### API
 
 1. The default export of the `"main"` script of a package should be a React component.
@@ -84,6 +78,4 @@ This component will be called with a `props` object containing all the informati
 
 1.
 
-
 ##### Pages
-

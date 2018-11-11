@@ -1,144 +1,196 @@
 #!/usr/bin/env node
 
-const program       = require('commander');
-const express       = require('express');
-const fs            = require('fs-extra');
-const get_remote    = require('request-promise');
-const app           = express();
-const path          = require('path');
-const extract       = require('../src/lib/extract')
-const str           = require('../src/lib/string')
-const cors          = require('cors')
-const tmp           = require('tmp');
+const program = require("commander");
+const express = require("express");
+const fs = require("fs-extra");
+const request = require("request-promise");
+const app = express();
+const path = require("path");
+const extract = require("../src/lib/extract");
+const str = require("../src/lib/string");
+const cors = require("cors");
+const tmp = require("tmp");
 
 /** Constants */
 
-const DELIMITER = '/*b60572a8-ec4e-11e7-813f-f3216482b08a*/';
-
-/** Program mcjiggs */
+const DELIMITER = "/*b60572a8-ec4e-11e7-813f-f3216482b08a*/";
 
 program
-  .usage('<options> [index]')
-  .option('-p, --port [number]', 'Use custom port number', 8080)
-  .option('--debug', 'Use higher log-level')
+  .usage("<options> [source]")
+  .option("-p, --port [number]", "Use custom port number", 8080)
+  .option("-v, --verbose", "Use higher log-level")
+  .option("--no-cache", "Don't cache")
   .parse(process.argv);
+
+function getRemoteURL() {
+  let url = program.args[0];
+  if (!url) {
+    return "http://retumblesome.tumblr.com";
+  }
+  if (!/^https?:\/\//.test(url)) {
+    url = "http://" + url;
+  }
+  return url;
+}
 
 /**
  * url of remote blog to use as sample data
  * NOTE: it must be using a retumble theme to work
  */
-const remote_url = program.args[0] || 'http://retumblesome.tumblr.com'
-
-/** port to server from */
+const remoteURL = getRemoteURL();
+const console_log = program.verbose ? console.log : () => {};
+const cache_file = program.cache ? path.join(".retumble", "cache.json") : null;
 const port = program.port;
 
 /** HTML Theme skeleton  */
-const local_theme = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8')
-
-/** Locantion to place the cache.json */
-const cache_file = path.join('.retumble', 'cache.json')
+const local_theme = fs.readFileSync(
+  path.resolve(__dirname, "index.html"),
+  "utf8"
+);
 
 /** Cutom log function to handle debug logging */
-const console_log = !program.debug ? (() => { }) : console.log;
 
-const cache = fs.readJsonSync(cache_file, { throws: false }) || {}
+let cache = {};
+if (program.cache) {
+  cache = fs.readJsonSync(cache_file, { throws: false }) || {};
+  fs.ensureFileSync(cache_file);
+} else {
+  console.log("No cache.");
+}
 
 /** Print this here so it doesn't interfere with the webpack progress bar */
 console.log(`
     Testing server to go on on http://localhost:${port}
-    > src: ${remote_url}
-    `);
+    > src: ${remoteURL}
+`);
 
 /** Gets local file */
-const get_local = url => new Promise((res, rej) => {
-  console_log('   * getting local', url)
-  fs.readFile(url, 'utf8', (err, data) => {
-    if (err) rej(err)
-    else res(data)
-  })
-})
+const get_local = url =>
+  new Promise((res, rej) => {
+    console_log("   * getting local", url);
+    fs.readFile(url, "utf8", (err, data) => {
+      if (err) rej(err);
+      else res(data);
+    });
+  });
 
 /** Webpack mcjiggs */
 
-const webpack       = require('webpack');
-const config        = require('./webpack.config')(process.cwd())
-const compiler      = webpack(config);
+const webpack = require("webpack");
+const middleware = require("webpack-dev-middleware");
+const config = require("./webpack.config")(process.cwd());
+const compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath,
-  logLevel: 'warn',
-  logTime: true,
-  historyApiFallback: true,
-}));
+app.use(
+  middleware(compiler, {
+    publicPath: config.output.publicPath,
+    logLevel: "warn",
+    logTime: true,
+    historyApiFallback: true,
+  })
+);
 
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(require("webpack-hot-middleware")(compiler));
 
-fs.ensureFileSync(cache_file)
+///////////////////////////////////////////////////////////////////// VERIFY URL
 
-/** Server mcjiggs */
+request(remoteURL)
+  .catch(err => {
+    console.error(`\nERROR fetching ${remoteURL}`);
+    console.error("Verify your connection and that it is the correct url.");
+    console.error("Got:");
+    console.error(err);
+    console.error("Aborting...");
+    process.exit(0);
+  })
+  .then(res => {
+    if (extract.isTheme(res)) {
+      return;
+    }
+    console.error(`\nERROR ${remoteURL} is not a retumble blog`);
+    console.error(`To use ${remoteURL} as the data source for testing,`);
+    console.error("it needs to be a valid retumble blog.");
+    console.error("Try installing a retumble theme on it, or use the");
+    console.error("default: http://retumblesome.tumblr.com");
+    console.error("Aborting...");
+    process.exit(0);
+  });
+// TODO: test retumble version here.
 
-const get_remote_memo = uri => {
-  if (!cache[uri]) return get_remote(uri)
-    .then(file => {
-      cache[uri] = file
-      return file
-    })
-  else {
-    console_log(' * Cache hit!')
-    fs.writeJsonSync(cache_file, cache)
-    return Promise.resolve(cache[uri])
+//////////////////////////////////////////////////////////////////////// ROUTING
+
+function getURL(url) {
+  // Cache hit
+  if (program.cache && cache[url]) {
+    console_log(` [CACHE] hit for ${url}`);
+    return Promise.resolve(cache[url]);
   }
+  // Cache miss
+  return request(url).then(file => {
+    if (program.cache) {
+      cache[url] = file;
+      fs.writeJsonSync(cache_file, cache);
+    }
+    return file;
+  });
 }
 
-app // Route all requests to remote equivalent
-.get(/.*/, function (req, res) {
-  console_log(` > requested ${req.path}`)
+function handleRequest(req, res) {
+  console_log(` [> WWW] requested ${req.path}`);
   /**
    * We fetch. If path exist on remote, we return
    * that, otherwise, we fall back to local files.
    */
-  get_remote_memo(remote_url + req.path)
-  .catch(e => {
-    // TODO: Check if is /, if thats the case,
-    // its a faulty interent connection
-    console_log(` - no remote ${req.path}`)
+  getURL(remoteURL + req.path)
+    .catch(e => {
+      // TODO: Check if is /, if thats the case,
+      // its a faulty internet connection?
+      console_log(` - no remote ${req.path}`);
 
-    return get_local(req.path)
-  })
-   /**
-    * If we fetched a themefile (from remote)
-    * we take its info and put it in the local
-    * themefile.
-    */
-  .then(file => {
-    if (!extract.isTheme(file)) { return file }
-    else {
-      const middle = file && str.replaceAll(
-        extract.t_string_from_html(file),
-        remote_url, `http://localhost:${port}`)
-      const res = middle
-        ? str.revert(local_theme, DELIMITER, DELIMITER, middle)
-        : local_theme;
-      return res
-    }a
-  })
-  .then(r => {
-    console_log(` v returning something for ${req.path}`)
-    res.type('html');
-    res.send(r);
-  })
-  .catch(x => {
-    if (x.code !== 'ENOENT') console.error(x)
-    res.status(404).send('Not found')
-  })
-})
+      return get_local(req.path);
+    })
+    /**
+     * If we fetched a themefile (from remote)
+     * we take its info and put it in the local
+     * themefile.
+     */
+    .then(file => {
+      if (!extract.isTheme(file)) {
+        return file;
+      } else {
+        const middle =
+          file &&
+          str.replaceAll(
+            extract.t_string_from_html(file),
+            remoteURL,
+            `http://localhost:${port}`
+          );
 
-app.use(cors())
+        const res = middle
+          ? str.revert(local_theme, DELIMITER, DELIMITER, middle)
+          : local_theme;
 
-app.listen(port, function (error) {
+        return res;
+      }
+    })
+    .then(r => {
+      console_log(` [v] returning something for ${req.path}`);
+      res.type("html");
+      res.send(r);
+    })
+    .catch(x => {
+      if (x.code !== "ENOENT") console.error(x);
+      res.status(404).send("Not found");
+    });
+}
+
+// Route all requests to remote equivalent
+app.get(/.*/, handleRequest);
+app.use(cors());
+app.listen(port, function(error) {
   if (error) {
-    console.log(`Can't listen on http://localhost:${port}`)
-    console.log('Exiting...')
-    process.exit(1)
+    console.log(`Can't listen on http://localhost:${port}`);
+    console.log("Exiting...");
+    process.exit(1);
   }
 });

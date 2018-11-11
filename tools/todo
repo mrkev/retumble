@@ -1,0 +1,39 @@
+
+
+V1
+x change delimiter to UUID
+x change default testing blog to something else
+x don't print error on not found
+x replace babel-preset-es2015 with babel-preset-env (retumble && blog)
+x rename to retumble
+x Make Pages be just an array
+x empty blog breaks
+x non-blog breaks on serve, not on run
+x change ip to localhost
+x Cache doesn't refresh properly
+- figure out permalink pagination
+- test retumble versions
+
+V2
+- Add redux to allow actions?
+  - Open drawer
+  - Like, reblog, etc?
+- Like
+- Reblog
+
+
+
+
+
+
+API changes:
+
+- Go through and figure what to change delete
+- Notes is an Option(Number)
+- Timestamp is a Date
+- Every field is a getter
+- can I have a field be both a getter and a function: ie
+  Player, and Plyaer({width: 200, height: 200})?
+  (should I just have player be 100% width and height?)
+- Define a common API for posts maybe?
+- Flow types would be nice. How can I expose them?

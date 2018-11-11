@@ -1,19 +1,34 @@
-import React from 'react'
-import lib from '../lib/obj.jsx'
+// @flow
+import React from "react";
+import lib from "../lib/obj.jsx";
 
-export default class Pagination {
-  constructor(props) {
-    // Take all properites
-    Object.keys(props).forEach(k => this[k] = props[k])
+type Props = {
+  NextPage?: string,
+  NextPost?: string,
+  PreviousPage?: string,
+  PreviousPost?: string,
+  CurrentPage: string,
+  TotalPages: string,
+};
 
-    if (this.CurrentPage) this.CurrentPage = parseInt(this.CurrentPage)
-    if (this.TotalPages) this.TotalPages = parseInt(this.TotalPages)
-    this.Previous = this.PreviousPost || this.PreviousPage
-    this.Next = this.NextPost || this.NextPage
-    delete this.PreviousPost
-    delete this.PreviousPage
-    delete this.NextPost
-    delete this.NextPage
-  }
+export type Pagination = {
+  NextPage?: string,
+  PreviousPage?: string,
+  Next?: string,
+  Previous?: string,
+  CurrentPage: number,
+  TotalPages: number,
+};
+
+export function pagination(props: Props): Pagination {
+  return {
+    // TODO: Remove and have two different types?
+    // Remove more specific one and have just this type?
+    Next: props.NextPost || props.NextPage,
+    Previous: props.PreviousPost || props.PreviousPage,
+    NextPage: props.NextPage,
+    PreviousPage: props.PreviousPage,
+    CurrentPage: parseInt(props.CurrentPage),
+    TotalPages: parseInt(props.TotalPages),
+  };
 }
-

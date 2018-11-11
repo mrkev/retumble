@@ -20,28 +20,266 @@
   <script>
     window.object = /*b60572a8-ec4e-11e7-813f-f3216482b08a*/ {
 
-        "Title" : {JSTitle},
+// Basic info
 
-      {block:Description}
-        "Description" : {JSDescription},
-      {/block:Description}
+"_retumble": {
+  'html-version': '0.0.0',
+},
 
-      {block:AskEnabled}
-        "AskEnabled" : true,
-        "AskLabel" : {JSAskLabel},
-      {/block:AskEnabled}
+"Title" : {JSTitle},
 
-      {block:SubmissionsEnabled}
-        "SubmissionsEnabled" : true,
-        "SubmitLabel" : {JSSubmitLabel},
-      {/block:SubmissionsEnabled}
+{block:Description}
+  "Description" : {JSDescription},
+  "MetaDescription": {JSMetaDescription},
+{/block:Description}
+
+{block:AskEnabled}
+  "AskEnabled" : true,
+  "AskLabel" : {JSAskLabel},
+{/block:AskEnabled}
+
+{block:SubmissionsEnabled}
+  "SubmissionsEnabled" : true,
+  "SubmitLabel" : {JSSubmitLabel},
+{/block:SubmissionsEnabled}
+
+  {block:PermalinkPage} "PermalinkPage": true, {/block:PermalinkPage}
+  {block:IndexPage} "IndexPage": true, {/block:IndexPage}
+  {block:HomePage} "HomePage": true, {/block:HomePage}
+  {block:PostTitle} "PostTitle": {JSPostTitle}, {/block:PostTitle}
+  {block:PostSummary} "PostSummary": {JSPostSummary}, {/block:PostSummary}
+  "PortraitURL-16": {JSPortraitURL-16},
+  "PortraitURL-24": {JSPortraitURL-24},
+  "PortraitURL-30": {JSPortraitURL-30},
+  "PortraitURL-40": {JSPortraitURL-40},
+  "PortraitURL-48": {JSPortraitURL-48},
+  "PortraitURL-64": {JSPortraitURL-64},
+  "PortraitURL-96": {JSPortraitURL-96},
+  "PortraitURL-128": {JSPortraitURL-128},
+  "CopyrightYears": {JSCopyrightYears},
+
+// Global apparence
+
+  "TitleFont": {JSTitleFont},
+  "TitleFontWeight": {JSTitleFontWeight},
+  "BackgroundColor": {JSBackgroundColor},
+  "TitleColor": {JSTitleColor},
+  "AccentColor": {JSAccentColor},
+  "HeaderImage": {JSHeaderImage},
+  "AvatarShape": {JSAvatarShape},
+  {block:ShowTitle} "ShowTitle": true, {/block:ShowTitle}
+  {block:HideTitle} "HideTitle": true, {/block:HideTitle}
+  {block:ShowDescription} "ShowDescription": true, {/block:ShowDescription}
+  {block:HideDescription} "HideDescription": true, {/block:HideDescription}
+  {block:ShowAvatar} "ShowAvatar": true, {/block:ShowAvatar}
+  {block:HideAvatar} "HideAvatar": true, {/block:HideAvatar}
+  {block:ShowHeaderImage} "ShowHeaderImage": true, {/block:ShowHeaderImage}
+  {block:HideHeaderImage} "HideHeaderImage": true, {/block:HideHeaderImage}
 
 
-        BlogURL : {JSBlogURL},
-        RSS : {JSRSS},
-        Favicon : {JSFavicon},
-        CopyrightYears : {JSCopyrightYears},
-        "PortraitURL-128" : {JSPortraitURL-128},
+// NAVIGATOIN
+
+// True/false if the page needs pagination (aka, TotalPages !== 1).
+// Just use that to test instead.
+// {block:Pagination} "Pagination": true, {/block:Pagination}
+// PreviousPage/NextPage render as "" if these are false.
+// Just test against empty string instead.
+// {block:PreviousPage} "PreviousPage": true, {/block:PreviousPage}
+// {block:NextPage} "NextPage": true, {/block:NextPage}
+"PreviousPage": {JSPreviousPage},
+"NextPage": {JSNextPage},
+"CurrentPage": {JSCurrentPage},
+"TotalPages": {JSTotalPages},
+
+// {block:SubmissionsEnabled} "SubmissionsEnabled": true, {/block:SubmissionsEnabled}
+// "SubmitLabel": {JSSubmitLabel},
+// {block:AskEnabled} "AskEnabled": true, {/block:AskEnabled}
+// "AskLabel": {JSAskLabel},
+
+// {block:JumpPagination} "JumpPagination": true, {/block:JumpPagination}
+// {block:CurrentPage} "CurrentPage": true, {/block:CurrentPage}
+// {block:JumpPage} "JumpPage": true, {/block:JumpPage}
+// "PageNumber": {JSPageNumber},
+// "URL": {JSURL},
+// {block:HasPages} "HasPages": true, {/block:HasPages}
+// {block:Pages} "Pages": true, {/block:Pages}
+// "URL": {JSURL},
+
+      {block:PermalinkPagination}
+      PermalinkPagination : {
+        {block:PreviousPost}
+          "PreviousPost" : {JSPreviousPost},
+        {/block:PreviousPost}
+        {block:NextPost}
+          "NextPost" : {JSNextPost},
+        {/block:NextPost}
+      },
+      {/block:PermalinkPagination}
+
+
+
+      {block:SearchPage}
+        "SearchPage" : true,
+        "SearchResultCount" : {JSSearchResultCount},
+        "SearchQuery" : {JSSearchQuery},
+        "URLSafeSearchQuery": {JSURLSafeSearchQuery},
+      {/block:SearchPage}
+
+      // Pages
+      {block:HasPages}
+        "Pages" : {
+          {block:Pages}
+            {JSURL} : {
+              URL         : {JSURL},
+              Label       : {JSLabel},
+            },
+          {/block:Pages}
+        },
+      {/block:HasPages}
+
+
+
+      // Posts
+      Posts: {
+        {block:Posts inlineMediaWidth="500"}
+
+          {JSPostID} : {
+            PostID  : {JSPostID},
+            PostType: {JSPostType},
+            ShortURL: {JSShortURL},
+            LikeButton: {JSLikeButton},
+            ReblogButton: {JSReblogButton},
+            EmbedUrl: {JSEmbedUrl},
+            PostNotesURL: {JSPostNotesURL},
+
+            {block:HasTags}
+              Tags: {
+                {block:Tags}
+                  {JSURLSafeTag} : {
+                    Tag : {JSTag},
+                    URLSafeTag : {JSURLSafeTag},
+                    TagURL : {JSTagURL} ,
+                    TagURLChrono: {JSTagURLChrono},
+                  },
+                {/block:Tags}
+              },
+            {/block:HasTags}
+
+            {block:Answer}
+              Question : {JSQuestion},
+              Answer   : {JSAnswer},
+              Asker : {JSAsker},
+              "AskerPortraitURL-128" : {JSAskerPortraitURL-128},
+            {/block:Answer}
+
+        // QUOTE POST //////////////////////////////////////////////////////////
+        {block:Quote}
+              "Quote": {JSQuote},
+            {block:Source}
+              "Source": {JSSource},
+            {/block:Source}
+        {/block:Quote}
+
+
+        // PHOTO POST //////////////////////////////////////////////////////////
+        {block:Photo}
+          "PhotoAlt": {JSPhotoAlt},
+          {block:Caption} "Caption": {JSCaption}, {/block:Caption}
+          {block:LinkURL}
+            "LinkURL" : {JSLinkURL},
+            "LinkOpenTag": {JSLinkOpenTag},
+            "LinkCloseTag": {JSLinkCloseTag},
+          {/block:LinkURL}
+          "PhotoURL-500": {JSPhotoURL-500},
+          "PhotoWidth-500": {JSPhotoWidth-500},
+          "PhotoHeight-500": {JSPhotoHeight-500},
+          "PhotoURL-400": {JSPhotoURL-400},
+          "PhotoWidth-400": {JSPhotoWidth-400},
+          "PhotoHeight-400": {JSPhotoHeight-400},
+          "PhotoURL-250": {JSPhotoURL-250},
+          "PhotoWidth-250": {JSPhotoWidth-250},
+          "PhotoHeight-250": {JSPhotoHeight-250},
+          "PhotoURL-100": {JSPhotoURL-100},
+          "PhotoWidth-100": {JSPhotoWidth-100},
+          "PhotoHeight-100": {JSPhotoHeight-100},
+          "PhotoURL-75sq": {JSPhotoURL-75sq},
+          {block:HighRes}
+            "PhotoURL-HighRes": {JSPhotoURL-HighRes},
+            "PhotoWidth-HighRes": {JSPhotoWidth-HighRes},
+            "PhotoHeight-HighRes": {JSPhotoHeight-HighRes},
+          {/block:HighRes}
+          {block:Exif} "Exif": true, {/block:Exif}
+          {block:Camera} "Camera": {JSCamera}, {/block:Camera}
+          {block:Aperture} "Aperture": {JSAperture}, {/block:Aperture}
+          {block:Exposure} "Exposure": {JSExposure}, {/block:Exposure}
+          {block:FocalLength} "FocalLength": {JSFocalLength}, {/block:FocalLength}
+        {/block:Photo}
+
+            {block:Video}
+                  "Video-500"  : {JSVideo-500},
+                {block:Caption}
+                  "Caption"    : {JSCaption},
+                {/block:Caption}
+            {/block:Video}
+            {block:Link}
+                  "Target": '{Target}',
+                  "URL" : {JSURL},
+                  "Name" : {JSName},
+                {block:Description}
+                  "Description" : {JSDescription},
+                {/block:Description}
+            {/block:Link}
+            {block:Chat}
+                {block:Title}
+                  "Title"          : {JSTitle},
+                {/block:Title}
+                  Lines : {
+                    {block:Lines}
+                      {JSUserNumber} : {
+                        Label      : {JSLabel},
+                        Name       : {JSName},
+                        Line       : {JSLine},
+                        UserNumber : {JSUserNumber},
+                      },
+                    {/block:Lines}
+                  },
+            {/block:Chat}
+            {block:Text}
+                  "Title"      : {JSTitle},
+                  "Body"       : {JSBody},
+            {/block:Text}
+            {block:Audio}
+                  "AudioPlayerGrey"      : {JSAudioPlayerGrey},
+                  "PlayCountWithLabel"   : {JSPlayCountWithLabel},
+                {block:Caption}
+                  "Caption"              : {JSCaption},
+                {/block:Caption}
+                {block:ExternalAudio}
+                  "ExternalAudioURL"     : {JSExternalAudioURL},
+
+                {/block:ExternalAudio}
+                {block:Artist}
+                  "Artist"               : {JSArtist},
+                {/block:Artist}
+                {block:TrackName}
+                  "TrackName" : {JSTrackName},
+                {/block:TrackName}
+            {/block:Audio}
+
+              "Permalink"  : {JSPermalink},
+              "NoteCount"  : {JSNoteCount},
+            {block:Date}
+              "TimeAgo"    : {JSTimeAgo},
+              "Timestamp"  : {JSTimestamp},
+            {/block:Date}
+            {block:PostNotes}
+              "PostNotes"  : {JSPostNotes},
+            {/block:PostNotes}
+          },
+        {/block:Posts}
+      },
+
+
 
         // Translated strigns (as of 17/9/17)
 "lang:About"                                                                       : `{lang:About}`,
@@ -364,182 +602,6 @@
 "lang:and wave them goodbye."                                                      : `{lang:and wave them goodbye.}`,
 "lang:iOS rating numbers"                                                          : `{lang:iOS rating numbers}`,
 
-      // Page Type
-      {block:PermalinkPage}
-        "PermalinkPage" : true,
-      {/block:PermalinkPage}
-
-      {block:IndexPage}
-        "IndexPage" : true,
-      {/block:IndexPage}
-
-      {block:SearchPage}
-        "SearchPage" : true,
-        "SearchResultCount" : {JSSearchResultCount},
-        "SearchQuery" : {JSSearchQuery},
-        "URLSafeSearchQuery": {JSURLSafeSearchQuery},
-      {/block:SearchPage}
-
-      // Pages
-      {block:HasPages}
-        "Pages" : {
-          {block:Pages}
-            {JSURL} : {
-              URL         : {JSURL},
-              Label       : {JSLabel},
-            },
-          {/block:Pages}
-        },
-      {/block:HasPages}
-
-
-      {block:Pagination}
-      Pagination : {
-        {block:NextPage}
-          "NextPage" : {JSNextPage},
-        {/block:NextPage}
-        {block:PreviousPage}
-          "PreviousPage" : {JSPreviousPage},
-        {/block:PreviousPage}
-          "CurrentPage" : "{CurrentPage}",
-          "TotalPages"  : "{TotalPages}",
-      },
-      {/block:Pagination}
-
-
-      {block:PermalinkPagination}
-      PermalinkPagination : {
-        {block:PreviousPost}
-          "PreviousPost" : {JSPreviousPost},
-        {/block:PreviousPost}
-        {block:NextPost}
-          "NextPost" : {JSNextPost},
-        {/block:NextPost}
-      },
-      {/block:PermalinkPagination}
-
-
-      // Posts
-      Posts: {
-        {block:Posts inlineMediaWidth="500"}
-
-          {JSPostID} : {
-            PostID  : {JSPostID},
-            PostType: {JSPostType},
-            ShortURL: {JSShortURL},
-            LikeButton: {JSLikeButton},
-            ReblogButton: {JSReblogButton},
-            EmbedUrl: {JSEmbedUrl},
-            PostNotesURL: {JSPostNotesURL},
-
-            {block:HasTags}
-              Tags: {
-                {block:Tags}
-                  {JSURLSafeTag} : {
-                    Tag : {JSTag},
-                    URLSafeTag : {JSURLSafeTag},
-                    TagURL : {JSTagURL} ,
-                    TagURLChrono: {JSTagURLChrono},
-                  },
-                {/block:Tags}
-              },
-            {/block:HasTags}
-
-            {block:Answer}
-              Question : {JSQuestion},
-              Answer   : {JSAnswer},
-              Asker : {JSAsker},
-              "AskerPortraitURL-128" : {JSAskerPortraitURL-128},
-            {/block:Answer}
-
-            {block:Quote}
-                  "Quote": {JSQuote},
-                {block:Source}
-                  "Source": {JSSource},
-                {/block:Source}
-            {/block:Quote}
-
-            {block:Photo}
-                // {block:LinkURL}
-                  LinkURL : {JSLinkURL},
-                  "LinkOpenTag"      : {JSLinkOpenTag},
-                  "LinkCloseTag"     : {JSLinkCloseTag},
-                // {/block:LinkURL}
-                  "PhotoAlt"         : {JSPhotoAlt},
-                  "PhotoURL-500"     : {JSPhotoURL-500},
-                {block:HighRes}
-                  "PhotoURL-HighRes" : {JSPhotoURL-HighRes},
-                  "PhotoWidth-HighRes" : {JSPhotoWidth-HighRes},
-                  "PhotoHeight-HighRes" : {JSPhotoHeight-HighRes},
-                {/block:HighRes}
-                {block:Caption}
-                  "Caption"          : {JSCaption},
-                {/block:Caption}
-            {/block:Photo}
-
-            {block:Video}
-                  "Video-500"  : {JSVideo-500},
-                {block:Caption}
-                  "Caption"    : {JSCaption},
-                {/block:Caption}
-            {/block:Video}
-            {block:Link}
-                  "Target": '{Target}',
-                  "URL" : {JSURL},
-                  "Name" : {JSName},
-                {block:Description}
-                  "Description" : {JSDescription},
-                {/block:Description}
-            {/block:Link}
-            {block:Chat}
-                {block:Title}
-                  "Title"          : {JSTitle},
-                {/block:Title}
-                  Lines : {
-                    {block:Lines}
-                      {JSUserNumber} : {
-                        Label      : {JSLabel},
-                        Name       : {JSName},
-                        Line       : {JSLine},
-                        UserNumber : {JSUserNumber},
-                      },
-                    {/block:Lines}
-                  },
-            {/block:Chat}
-            {block:Text}
-                  "Title"      : {JSTitle},
-                  "Body"       : {JSBody},
-            {/block:Text}
-            {block:Audio}
-                  "AudioPlayerGrey"      : {JSAudioPlayerGrey},
-                  "PlayCountWithLabel"   : {JSPlayCountWithLabel},
-                {block:Caption}
-                  "Caption"              : {JSCaption},
-                {/block:Caption}
-                {block:ExternalAudio}
-                  "ExternalAudioURL"     : {JSExternalAudioURL},
-
-                {/block:ExternalAudio}
-                {block:Artist}
-                  "Artist"               : {JSArtist},
-                {/block:Artist}
-                {block:TrackName}
-                  "TrackName" : {JSTrackName},
-                {/block:TrackName}
-            {/block:Audio}
-
-              "Permalink"  : {JSPermalink},
-              "NoteCount"  : {JSNoteCount},
-            {block:Date}
-              "TimeAgo"    : {JSTimeAgo},
-              "Timestamp"  : {JSTimestamp},
-            {/block:Date}
-            {block:PostNotes}
-              "PostNotes"  : {JSPostNotes},
-            {/block:PostNotes}
-          },
-        {/block:Posts}
-      }
     } /*b60572a8-ec4e-11e7-813f-f3216482b08a*/
   </script>
   <script src="/static/bundle.js"></script>

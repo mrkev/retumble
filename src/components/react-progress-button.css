@@ -14,7 +14,8 @@
   min-width: 34px;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  transition: background-color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s, border-radius 0.3s;
+  transition: background-color 0.3s, width 0.3s, border-width 0.3s,
+    border-color 0.3s, border-radius 0.3s;
 }
 .pb-container .pb-button span {
   display: inherit;
@@ -31,7 +32,7 @@
   fill: none;
 }
 .pb-container .pb-button svg.pb-progress-circle {
-  animation: spin 0.9s infinite cubic-bezier(0.085, 0.260, 0.935, 0.710);
+  animation: spin 0.9s infinite cubic-bezier(0.085, 0.26, 0.935, 0.71);
 }
 .pb-container .pb-button svg.pb-progress-circle path {
   stroke: currentColor;
@@ -68,8 +69,8 @@
 }
 .pb-container.success .pb-button {
   border-radius: 20px;
-  border-color: #A0D468;
-  background-color: #A0D468;
+  border-color: #a0d468;
+  background-color: #a0d468;
 }
 .pb-container.success .pb-button span {
   transition: all 0.15s;
@@ -81,8 +82,8 @@
 }
 .pb-container.error .pb-button {
   border-radius: 20px;
-  border-color: #ED5565;
-  background-color: #ED5565;
+  border-color: #ed5565;
+  background-color: #ed5565;
 }
 .pb-container.error .pb-button span {
   transition: all 0.15s;

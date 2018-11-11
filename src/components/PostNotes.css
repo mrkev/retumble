@@ -1,174 +1,160 @@
-/*iframe {
-  height: 100%;
-  width: 100%;
-  border-style: none;
-}
-*/
 ol.notes {
-  
+  font-family: "Helvetica Neue", HelveticaNeue, Arial, sans-serif;
+  list-style-type: none;
 }
 ol.notes li.note {
   /*border: none;*/
   padding: 10px 15px;
   /*display: table;*/
   /*color: rgba(90,90,90,.75);*/
-  height: 21px;
-  border-bottom: 1px solid #DDD;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  height: auto;
+  border-bottom: 1px solid #ddd;
 }
 
 .notes .action {
-    float: left;
-    /*display: table-row;*/
-    width: 80%;
+  float: left;
+  /*display: table-row;*/
+  width: 80%;
 }
-
-/*ol.notes {
-  list-style-type: none;
-}
-
 
 .notes .note a {
-    color: #444;
+  color: #444;
 }
 
-
-
 .avatar_frame {
-    display: block;
-    float: left;
-    position: relative;
-    margin: -2px 12px 0 0;
-    border-radius: 2px;
+  display: block;
+  float: left;
+  position: relative;
+  margin: -2px 12px 0 0;
+  border-radius: 2px;
 }
 
 .notes .avatar {
-    height: 25px;
-    width: 25px;
+  height: 25px;
+  width: 25px;
 }
-
-.drawer {
-  overflow: hidden;
-  padding: 0px;
-  margin: 0px;
-}*/
-
 
 .notes {
-    list-style: none;
-    padding: 0;
-    margin: 0
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .notes li {
-    color: #bdbdbd;
-    color: rgba(90, 90, 90, .6);
-    font-size: 14px;
-    padding: 14px 0 9px;
-    border-top: 1px solid #eee
+  color: #bdbdbd;
+  color: rgba(90, 90, 90, 0.6);
+  font-size: 14px;
+  padding: 14px 0 9px;
+  border-top: 1px solid #eee;
 }
 .notes li:first-child {
-    border-top: 0
+  border-top: 0;
 }
 .notes li.more_notes_link_container {
-    padding: 0
+  padding: 0;
 }
 .notes li.more_notes_link_container .more_notes_link,
 .notes li.more_notes_link_container .notes_loading {
-    padding: 14px 0 9px
+  padding: 14px 0 9px;
 }
 .index-page.grid figure.photoset,
 .notes .reply {
-    margin: 0
+  margin: 0;
 }
 .avatar_frame,
 .notes .avatar {
-    border-radius: 2px;
-    position: relative
+  border-radius: 2px;
+  position: relative;
 }
 .avatar_frame {
-    display: block;
-    float: left;
-    margin: -2px 12px 0 0
+  display: block;
+  float: left;
+  margin: -2px 12px 0 0;
 }
 .avatar_frame:before {
-    content: '';
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    border-radius: 2px
+  content: "";
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 2px;
 }
 .avatar_frame:after {
-    display: none;
-    content: '';
-    background: url(//static.tumblr.com/vr9xgox/X4en0lgid/sprite-1x.png) 0 0 no-repeat;
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    bottom: -6px;
-    z-index: 10;
-    right: -8px
+  display: none;
+  content: "";
+  background: url(//static.tumblr.com/vr9xgox/X4en0lgid/sprite-1x.png) 0 0
+    no-repeat;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  bottom: -6px;
+  z-index: 10;
+  right: -8px;
 }
 .reblog.note .avatar_frame:after {
-    display: block;
-    background-position: 0 0
+  display: block;
+  background-position: 0 0;
 }
 .like.note .avatar_frame:after {
-    display: block;
-    background-position: -28px 0
+  display: block;
+  background-position: -28px 0;
 }
 .answer.note .avatar_frame:after,
 .reply.note .avatar_frame:after {
-    display: block;
-    background-position: -56px 0
+  display: block;
+  background-position: -56px 0;
 }
 .original_post.note .avatar_frame:after,
 .tag.note .avatar_frame:after {
-    display: none
+  display: none;
 }
 .notes .avatar {
-    height: 25px;
-    width: 25px
+  height: 25px;
+  width: 25px;
 }
 .notes .action {
-    float: left;
-    width: 80%
+  float: left;
+  width: 80%;
 }
 .notes a {
-    color: inherit;
-    font-weight: 700;
-    text-decoration: none
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
 }
 .notes a:hover {
-    color: rgba(90, 90, 90, .7)
+  color: rgba(90, 90, 90, 0.7);
 }
 .notes blockquote,
 .quote .notes blockquote {
-    border-left: 2px solid #eee;
-    font-size: inherit;
-    line-height: 1.4;
-    margin: 3px 35px 0;
-    quotes: none;
-    padding: 0 0 0 10px
+  border-left: 2px solid #eee;
+  font-size: inherit;
+  line-height: 1.4;
+  margin: 3px 35px 0;
+  quotes: none;
+  padding: 0 0 0 10px;
 }
 .more_notes_link {
-    border-radius: 4px;
-    color: #858585;
-    display: block
+  border-radius: 4px;
+  color: #858585;
+  display: block;
 }
 .comments {
-    margin: 25px 20px 20px;
-    position: relative;
-    padding: 0
+  margin: 25px 20px 20px;
+  position: relative;
+  padding: 0;
 }
 .comments:before {
-    content: '';
-    top: 0;
-    border-top: 1px solid #eee;
-    position: absolute;
-    width: 100%;
-    margin: -20px;
-    padding: 20px
+  content: "";
+  top: 0;
+  border-top: 1px solid #eee;
+  position: absolute;
+  width: 100%;
+  margin: -20px;
+  padding: 20px;
 }

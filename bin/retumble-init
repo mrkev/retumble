@@ -1,36 +1,38 @@
 #!/usr/bin/env node
 
-const program       = require('commander');
-const get_remote    = require('request-promise');
-const copydir       = require('copy-dir');
-const path          = require('path');
-const execa         = require('execa');
-const fs            = require('fs-extra');
-const download      = require('download');
-const tmp           = require('tmp');
-const unzip         = require('unzip');
+const program = require("commander");
+const get_remote = require("request-promise");
+const copydir = require("copy-dir");
+const path = require("path");
+const execa = require("execa");
+const fs = require("fs-extra");
+const download = require("download");
+const tmp = require("tmp");
+const unzip = require("unzip");
 
-program
-  .usage('<options> [name]')
-  .parse(process.argv);
+program.usage("<options> [name]").parse(process.argv);
 
-const target = (program.args.length > 0) ? program.args[0] : 'retumble-untitled'
+const target = program.args.length > 0 ? program.args[0] : "retumble-untitled";
 const tmpobj = tmp.dirSync();
 
 if (fs.pathExistsSync(target)) {
-  console.log(`"${target}" already exists! Aborting.`)
-  process.exit(1)
+  console.log(`"${target}" already exists! Aborting.`);
+  process.exit(1);
 }
 
-download('https://github.com/mrkev/retumble-blank/archive/master.zip', tmpobj.name)
-.then(() => {
-  fs.createReadStream(tmpobj.name + '/retumble-blank-master.zip')
-    .pipe(unzip.Extract({ path: tmpobj.name }))
+download(
+  "https://github.com/mrkev/retumble-blank/archive/master.zip",
+  tmpobj.name
+)
+  .then(() => {
+    fs.createReadStream(tmpobj.name + "/retumble-blank-master.zip").pipe(
+      unzip.Extract({ path: tmpobj.name })
+    );
 
-  setTimeout(() => {
-    const src = path.join(tmpobj.name, '/retumble-blank-master')
-    copydir.sync(src, target)
-    console.log('done!')
-  }, 1000)
-})
-.catch(console.error)
+    setTimeout(() => {
+      const src = path.join(tmpobj.name, "/retumble-blank-master");
+      copydir.sync(src, target);
+      console.log("done!");
+    }, 1000);
+  })
+  .catch(console.error);

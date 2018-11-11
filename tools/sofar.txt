@@ -1,0 +1,393 @@
+NOTE: Here I mark what has been included and what hasnt:
+
+Indented: included
+
+######### BASIC INFO
+
+  "Title": {JSTitle},
+  "Description": {JSDescription},
+  "MetaDescription": {JSMetaDescription},
+  "BlogURL": {JSBlogURL},
+  "RSS": {JSRSS},
+  "Favicon": {JSFavicon},
+"CustomCSS": {JSCustomCSS},
+  {block:PermalinkPage} "PermalinkPage": true, {/block:PermalinkPage}
+  {block:IndexPage} "IndexPage": true, {/block:IndexPage}
+  {block:HomePage} "HomePage": true, {/block:HomePage}
+  {block:PostTitle} "PostTitle": {JSPostTitle}, {/block:PostTitle}
+  {block:PostSummary} "PostSummary": {JSPostSummary}, {/block:PostSummary}
+  "PortraitURL-16": {JSPortraitURL-16},
+  "PortraitURL-24": {JSPortraitURL-24},
+  "PortraitURL-30": {JSPortraitURL-30},
+  "PortraitURL-40": {JSPortraitURL-40},
+  "PortraitURL-48": {JSPortraitURL-48},
+  "PortraitURL-64": {JSPortraitURL-64},
+  "PortraitURL-96": {JSPortraitURL-96},
+  "PortraitURL-128": {JSPortraitURL-128},
+  "CopyrightYears": {JSCopyrightYears},
+
+############# GLOBAL APPARENCE
+
+
+  "TitleFont": {JSTitleFont},
+  "TitleFontWeight": {JSTitleFontWeight},
+  "BackgroundColor": {JSBackgroundColor},
+  "TitleColor": {JSTitleColor},
+  "AccentColor": {JSAccentColor},
+  "HeaderImage": {JSHeaderImage},
+  "AvatarShape": {JSAvatarShape},
+  {block:ShowTitle} "ShowTitle": true, {/block:ShowTitle}
+  {block:HideTitle} "HideTitle": true, {/block:HideTitle}
+  {block:ShowDescription} "ShowDescription": true, {/block:ShowDescription}
+  {block:HideDescription} "HideDescription": true, {/block:HideDescription}
+  {block:ShowAvatar} "ShowAvatar": true, {/block:ShowAvatar}
+  {block:HideAvatar} "HideAvatar": true, {/block:HideAvatar}
+  {block:ShowHeaderImage} "ShowHeaderImage": true, {/block:ShowHeaderImage}
+  {block:HideHeaderImage} "HideHeaderImage": true, {/block:HideHeaderImage}
+
+
+##################### NAVIGATON TBD
+
+{block:Pagination} "Pagination": true, {/block:Pagination}
+{block:PreviousPage} "PreviousPage": true, {/block:PreviousPage}
+{block:NextPage} "NextPage": true, {/block:NextPage}
+"PreviousPage": {JSPreviousPage},
+"NextPage": {JSNextPage},
+"CurrentPage": {JSCurrentPage},
+"TotalPages": {JSTotalPages},
+{block:SubmissionsEnabled} "SubmissionsEnabled": true, {/block:SubmissionsEnabled}
+"SubmitLabel": {JSSubmitLabel},
+{block:AskEnabled} "AskEnabled": true, {/block:AskEnabled}
+"AskLabel": {JSAskLabel},
+
+{block:JumpPagination} "JumpPagination": true, {/block:JumpPagination}
+{block:CurrentPage} "CurrentPage": true, {/block:CurrentPage}
+{block:JumpPage} "JumpPage": true, {/block:JumpPage}
+"PageNumber": {JSPageNumber},
+"URL": {JSURL},
+
+################################ Page
+
+  {block:HasPages} "HasPages": true, {/block:HasPages}
+  {block:Pages} "Pages": true, {/block:Pages}
+  "URL": {JSURL},
+  "Label": {JSLabel},
+
+
+############################ TBD
+
+"block:PermalinkPagination": {JSblock:PermalinkPagination},
+{block:PreviousPost} "PreviousPost": true, {/block:PreviousPost}
+{block:NextPost} "NextPost": true, {/block:NextPost}
+"PreviousPost": {JSPreviousPost},
+"NextPost": {JSNextPost},
+{block:Posts} "Posts": true, {/block:Posts}
+{block:Posts} "Posts": true, {/block:Posts}
+{block:Posts} "Posts": true, {/block:Posts}
+{block:Text} "Text": true, {/block:Text}
+{block:Photo} "Photo": true, {/block:Photo}
+{block:Panorama} "Panorama": true, {/block:Panorama}
+{block:Photoset} "Photoset": true, {/block:Photoset}
+{block:Quote} "Quote": true, {/block:Quote}
+{block:Link} "Link": true, {/block:Link}
+{block:Chat} "Chat": true, {/block:Chat}
+{block:Audio} "Audio": true, {/block:Audio}
+{block:Video} "Video": true, {/block:Video}
+{block:Answer} "Answer": true, {/block:Answer}
+"PostType": {JSPostType},
+"Permalink": {JSPermalink},
+"ShortURL": {JSShortURL},
+"EmbedUrl": {JSEmbedUrl},
+"PostID": {JSPostID},
+"TagsAsClasses": {JSTagsAsClasses},
+{block:Post<em>[1-15]</em>} "Post<em>[1-15]</em>": true, {/block:Post<em>[1-15]</em>}
+{block:Odd} "Odd": true, {/block:Odd}
+{block:Even} "Even": true, {/block:Even}
+{block:More} "More": true, {/block:More}
+"PostNotesURL": {JSPostNotesURL},
+{block:RebloggedFrom} "RebloggedFrom": true, {/block:RebloggedFrom}
+"ReblogParentName": {JSReblogParentName},
+"ReblogParentTitle": {JSReblogParentTitle},
+"ReblogParentURL": {JSReblogParentURL},
+"ReblogParentPortraitURL-16": {JSReblogParentPortraitURL-16},
+"ReblogParentPortraitURL-24": {JSReblogParentPortraitURL-24},
+"ReblogParentPortraitURL-30": {JSReblogParentPortraitURL-30},
+"ReblogParentPortraitURL-40": {JSReblogParentPortraitURL-40},
+"ReblogParentPortraitURL-48": {JSReblogParentPortraitURL-48},
+"ReblogParentPortraitURL-64": {JSReblogParentPortraitURL-64},
+"ReblogParentPortraitURL-96": {JSReblogParentPortraitURL-96},
+"ReblogParentPortraitURL-128": {JSReblogParentPortraitURL-128},
+"ReblogRootName": {JSReblogRootName},
+"ReblogRootTitle": {JSReblogRootTitle},
+"ReblogRootURL": {JSReblogRootURL},
+"ReblogRootPortraitURL-16": {JSReblogRootPortraitURL-16},
+"ReblogRootPortraitURL-24": {JSReblogRootPortraitURL-24},
+"ReblogRootPortraitURL-30": {JSReblogRootPortraitURL-30},
+"ReblogRootPortraitURL-40": {JSReblogRootPortraitURL-40},
+"ReblogRootPortraitURL-48": {JSReblogRootPortraitURL-48},
+"ReblogRootPortraitURL-64": {JSReblogRootPortraitURL-64},
+"ReblogRootPortraitURL-96": {JSReblogRootPortraitURL-96},
+"ReblogRootPortraitURL-128": {JSReblogRootPortraitURL-128},
+{block:NotReblog} "NotReblog": true, {/block:NotReblog}
+{block:Title} "Title": true, {/block:Title}
+"Title": {JSTitle},
+"Body": {JSBody},
+
+  "PhotoAlt": {JSPhotoAlt},
+  {block:Caption} "Caption": true, {/block:Caption}
+  "Caption": {JSCaption},
+  "block:LinkURL": {JSblock:LinkURL},
+  "LinkURL": {JSLinkURL},
+  "LinkOpenTag": {JSLinkOpenTag},
+  "LinkCloseTag": {JSLinkCloseTag},
+  "PhotoURL-500": {JSPhotoURL-500},
+  "PhotoWidth-500": {JSPhotoWidth-500},
+  "PhotoHeight-500": {JSPhotoHeight-500},
+  "PhotoURL-400": {JSPhotoURL-400},
+  "PhotoWidth-400": {JSPhotoWidth-400},
+  "PhotoHeight-400": {JSPhotoHeight-400},
+  "PhotoURL-250": {JSPhotoURL-250},
+  "PhotoWidth-250": {JSPhotoWidth-250},
+  "PhotoHeight-250": {JSPhotoHeight-250},
+  "PhotoURL-100": {JSPhotoURL-100},
+  "PhotoWidth-100": {JSPhotoWidth-100},
+  "PhotoHeight-100": {JSPhotoHeight-100},
+  "PhotoURL-75sq": {JSPhotoURL-75sq},
+  {block:HighRes} "HighRes": true, {/block:HighRes}
+  "PhotoURL-HighRes": {JSPhotoURL-HighRes},
+  "PhotoWidth-HighRes": {JSPhotoWidth-HighRes},
+  "PhotoHeight-HighRes": {JSPhotoHeight-HighRes},
+  {block:Exif} "Exif": true, {/block:Exif}
+  {block:Camera} "Camera": {JSCamera}, {/block:Camera}
+  {block:Aperture} "Aperture": {JSAperture}, {/block:Aperture}
+  {block:Exposure} "Exposure": {JSExposure}, {/block:Exposure}
+  {block:FocalLength} "FocalLength": {JSFocalLength}, {/block:FocalLength}
+
+"LinkOpenTag": {JSLinkOpenTag},
+"LinkCloseTag": {JSLinkCloseTag},
+"PhotoURL-Panorama": {JSPhotoURL-Panorama},
+"PhotoWidth-Panorama": {JSPhotoWidth-Panorama},
+"PhotoHeight-Panorama": {JSPhotoHeight-Panorama},
+{block:Caption} "Caption": true, {/block:Caption}
+"Caption": {JSCaption},
+"Photoset": {JSPhotoset},
+"Photoset-700": {JSPhotoset-700},
+"Photoset-500": {JSPhotoset-500},
+"Photoset-400": {JSPhotoset-400},
+"Photoset-250": {JSPhotoset-250},
+"PhotoCount": {JSPhotoCount},
+"PhotosetLayout": {JSPhotosetLayout},
+"JSPhotosetLayout": {JSJSPhotosetLayout},
+{block:Photos} "Photos": true, {/block:Photos}
+"Quote": {JSQuote},
+{block:Source} "Source": true, {/block:Source}
+"Source": {JSSource},
+"Length": {JSLength},
+"URL": {JSURL},
+"Name": {JSName},
+"Target": {JSTarget},
+{block:Host} "Host": true, {/block:Host}
+"Host": {JSHost},
+{block:Thumbnail} "Thumbnail": true, {/block:Thumbnail}
+"Thumbnail": {JSThumbnail},
+"Thumbnail-HighRes": {JSThumbnail-HighRes},
+{block:Description} "Description": true, {/block:Description}
+"Description": {JSDescription},
+{block:Author} "Author": true, {/block:Author}
+"Author": {JSAuthor},
+{block:Excerpt} "Excerpt": true, {/block:Excerpt}
+"Excerpt": {JSExcerpt},
+{block:Title} "Title": true, {/block:Title}
+"Title": {JSTitle},
+{block:Lines} "Lines": true, {/block:Lines}
+{block:Label} "Label": true, {/block:Label}
+"Label": {JSLabel},
+"Name": {JSName},
+"Line": {JSLine},
+"UserNumber": {JSUserNumber},
+"Alt": {JSAlt},
+{block:Caption} "Caption": true, {/block:Caption}
+"Caption": {JSCaption},
+{block:AudioEmbed} "AudioEmbed": true, {/block:AudioEmbed}
+"AudioEmbed": {JSAudioEmbed},
+"AudioEmbed-250": {JSAudioEmbed-250},
+"AudioEmbed-400": {JSAudioEmbed-400},
+"AudioEmbed-500": {JSAudioEmbed-500},
+"AudioEmbed-640": {JSAudioEmbed-640},
+{block:AudioPlayer} "AudioPlayer": true, {/block:AudioPlayer}
+"AudioPlayer": {JSAudioPlayer},
+"RawAudioURL": {JSRawAudioURL},
+{block:PlayCount} "PlayCount": true, {/block:PlayCount}
+"PlayCount": {JSPlayCount},
+"FormattedPlayCount": {JSFormattedPlayCount},
+"PlayCountWithLabel": {JSPlayCountWithLabel},
+{block:ExternalAudio} "ExternalAudio": true, {/block:ExternalAudio}
+"ExternalAudioURL": {JSExternalAudioURL},
+{block:AlbumArt} "AlbumArtURL": {JSAlbumArtURL}, {/block:AlbumArt}
+{block:Artist} "Artist": {JSArtist}, {/block:Artist}
+{block:Album} "Album": {JSAlbum}, {/block:Album}
+{block:TrackName} "TrackName": {JSTrackName}, {/block:TrackName}
+{block:Caption} "Caption": true, {/block:Caption}
+"Caption": {JSCaption},
+"Video-700": {JSVideo-700},
+"Video-500": {JSVideo-500},
+"Video-400": {JSVideo-400},
+"Video-250": {JSVideo-250},
+"VideoEmbed-700": {JSVideoEmbed-700},
+"VideoEmbed-500": {JSVideoEmbed-500},
+"VideoEmbed-400": {JSVideoEmbed-400},
+"VideoEmbed-250": {JSVideoEmbed-250},
+"PlayCount": {JSPlayCount},
+"FormattedPlayCount": {JSFormattedPlayCount},
+"PlayCountWithLabel": {JSPlayCountWithLabel},
+{block:VideoThumbnail} "VideoThumbnailURL": {JSVideoThumbnailURL}, {/block:VideoThumbnail}
+{block:VideoThumbnails} "VideoThumbnailURL": {JSVideoThumbnailURL}, {/block:VideoThumbnails}
+"Question": {JSQuestion},
+"Answer": {JSAnswer},
+"Asker": {JSAsker},
+"AskerPortraitURL-16": {JSAskerPortraitURL-16},
+"AskerPortraitURL-24": {JSAskerPortraitURL-24},
+"AskerPortraitURL-30": {JSAskerPortraitURL-30},
+"AskerPortraitURL-40": {JSAskerPortraitURL-40},
+"AskerPortraitURL-48": {JSAskerPortraitURL-48},
+"AskerPortraitURL-64": {JSAskerPortraitURL-64},
+"AskerPortraitURL-96": {JSAskerPortraitURL-96},
+"AskerPortraitURL-128": {JSAskerPortraitURL-128},
+{block:Answerer} "Answerer": true, {/block:Answerer}
+"Answerer": {JSAnswerer},
+"AnswererPortraitURL-16": {JSAnswererPortraitURL-16},
+"AnswererPortraitURL-24": {JSAnswererPortraitURL-24},
+"AnswererPortraitURL-30": {JSAnswererPortraitURL-30},
+"AnswererPortraitURL-40": {JSAnswererPortraitURL-40},
+"AnswererPortraitURL-48": {JSAnswererPortraitURL-48},
+"AnswererPortraitURL-64": {JSAnswererPortraitURL-64},
+"AnswererPortraitURL-96": {JSAnswererPortraitURL-96},
+"AnswererPortraitURL-128": {JSAnswererPortraitURL-128},
+"Replies": {JSReplies},
+{block:Date} "Date": true, {/block:Date}
+{block:NewDayDate} "NewDayDate": true, {/block:NewDayDate}
+{block:SameDayDate} "SameDayDate": true, {/block:SameDayDate}
+"DayOfMonth": {JSDayOfMonth},
+"DayOfMonthWithZero": {JSDayOfMonthWithZero},
+"DayOfWeek": {JSDayOfWeek},
+"ShortDayOfWeek": {JSShortDayOfWeek},
+"DayOfWeekNumber": {JSDayOfWeekNumber},
+"DayOfMonthSuffix": {JSDayOfMonthSuffix},
+"DayOfYear": {JSDayOfYear},
+"WeekOfYear": {JSWeekOfYear},
+"Month": {JSMonth},
+"ShortMonth": {JSShortMonth},
+"MonthNumber": {JSMonthNumber},
+"MonthNumberWithZero": {JSMonthNumberWithZero},
+"Year": {JSYear},
+"ShortYear": {JSShortYear},
+"AmPm": {JSAmPm},
+"CapitalAmPm": {JSCapitalAmPm},
+"12Hour": {JS12Hour},
+"24Hour": {JS24Hour},
+"12HourWithZero": {JS12HourWithZero},
+"24HourWithZero": {JS24HourWithZero},
+"Minutes": {JSMinutes},
+"Seconds": {JSSeconds},
+"Beats": {JSBeats},
+"Timestamp": {JSTimestamp},
+"TimeAgo": {JSTimeAgo},
+{block:PostNotes} "PostNotes": true, {/block:PostNotes}
+"PostNotes": {JSPostNotes},
+"PostNotes-16": {JSPostNotes-16},
+"PostNotes-64": {JSPostNotes-64},
+{block:NoteCount} "NoteCount": true, {/block:NoteCount}
+"NoteCount": {JSNoteCount},
+"NoteCountWithLabel": {JSNoteCountWithLabel},
+{block:HasTags} "HasTags": true, {/block:HasTags}
+{block:Tags} "Tags": true, {/block:Tags}
+"Tag": {JSTag},
+"URLSafeTag": {JSURLSafeTag},
+"TagURL": {JSTagURL},
+"TagURLChrono": {JSTagURLChrono},
+{block:ContentSource} "ContentSource": true, {/block:ContentSource}
+"SourceURL": {JSSourceURL},
+{block:SourceLogo} "SourceLogo": true, {/block:SourceLogo}
+"BlackLogoURL": {JSBlackLogoURL},
+"LogoWidth": {JSLogoWidth},
+"LogoHeight": {JSLogoHeight},
+"SourceTitle": {JSSourceTitle},
+{block:NoSourceLogo} "NoSourceLogo": true, {/block:NoSourceLogo}
+{block:Submission} "Submission": true, {/block:Submission}
+"Submitter": {JSSubmitter},
+"SubmitterURL": {JSSubmitterURL},
+"SubmitterPortraitURL-16": {JSSubmitterPortraitURL-16},
+"SubmitterPortraitURL-24": {JSSubmitterPortraitURL-24},
+"SubmitterPortraitURL-30": {JSSubmitterPortraitURL-30},
+"SubmitterPortraitURL-40": {JSSubmitterPortraitURL-40},
+"SubmitterPortraitURL-48": {JSSubmitterPortraitURL-48},
+"SubmitterPortraitURL-64": {JSSubmitterPortraitURL-64},
+"SubmitterPortraitURL-96": {JSSubmitterPortraitURL-96},
+"SubmitterPortraitURL-128": {JSSubmitterPortraitURL-128},
+{block:GroupMembers} "GroupMembers": true, {/block:GroupMembers}
+{block:GroupMember} "GroupMember": true, {/block:GroupMember}
+"GroupMemberName": {JSGroupMemberName},
+"GroupMemberTitle": {JSGroupMemberTitle},
+"GroupMemberURL": {JSGroupMemberURL},
+"GroupMemberPortraitURL-16": {JSGroupMemberPortraitURL-16},
+"GroupMemberPortraitURL-24": {JSGroupMemberPortraitURL-24},
+"GroupMemberPortraitURL-30": {JSGroupMemberPortraitURL-30},
+"GroupMemberPortraitURL-40": {JSGroupMemberPortraitURL-40},
+"GroupMemberPortraitURL-48": {JSGroupMemberPortraitURL-48},
+"GroupMemberPortraitURL-64": {JSGroupMemberPortraitURL-64},
+"GroupMemberPortraitURL-96": {JSGroupMemberPortraitURL-96},
+"GroupMemberPortraitURL-128": {JSGroupMemberPortraitURL-128},
+"PostAuthorName": {JSPostAuthorName},
+"PostAuthorTitle": {JSPostAuthorTitle},
+"PostAuthorURL": {JSPostAuthorURL},
+"PostAuthorPortraitURL-16": {JSPostAuthorPortraitURL-16},
+"PostAuthorPortraitURL-24": {JSPostAuthorPortraitURL-24},
+"PostAuthorPortraitURL-30": {JSPostAuthorPortraitURL-30},
+"PostAuthorPortraitURL-40": {JSPostAuthorPortraitURL-40},
+"PostAuthorPortraitURL-48": {JSPostAuthorPortraitURL-48},
+"PostAuthorPortraitURL-64": {JSPostAuthorPortraitURL-64},
+"PostAuthorPortraitURL-96": {JSPostAuthorPortraitURL-96},
+"PostAuthorPortraitURL-128": {JSPostAuthorPortraitURL-128},
+{block:DayPage} "DayPage": true, {/block:DayPage}
+{block:DayPagination} "DayPagination": true, {/block:DayPagination}
+{block:PreviousDayPage} "PreviousDayPage": true, {/block:PreviousDayPage}
+{block:NextDayPage} "NextDayPage": true, {/block:NextDayPage}
+"PreviousDayPage": {JSPreviousDayPage},
+"NextDayPage": {JSNextDayPage},
+{block:TagPage} "TagPage": true, {/block:TagPage}
+"Tag": {JSTag},
+"URLSafeTag": {JSURLSafeTag},
+"TagURL": {JSTagURL},
+"TagURLChrono": {JSTagURLChrono},
+"SearchQuery": {JSSearchQuery},
+"URLSafeSearchQuery": {JSURLSafeSearchQuery},
+"block:SearchPage": {JSblock:SearchPage},
+"SearchResultCount": {JSSearchResultCount},
+"block:NoSearchResults": {JSblock:NoSearchResults},
+{block:Following} "Following": true, {/block:Following}
+{block:Followed} "Followed": true, {/block:Followed}
+"FollowedName": {JSFollowedName},
+"FollowedTitle": {JSFollowedTitle},
+"FollowedURL": {JSFollowedURL},
+"FollowedPortraitURL-16": {JSFollowedPortraitURL-16},
+"FollowedPortraitURL-24": {JSFollowedPortraitURL-24},
+"FollowedPortraitURL-30": {JSFollowedPortraitURL-30},
+"FollowedPortraitURL-40": {JSFollowedPortraitURL-40},
+"FollowedPortraitURL-48": {JSFollowedPortraitURL-48},
+"FollowedPortraitURL-64": {JSFollowedPortraitURL-64},
+"FollowedPortraitURL-96": {JSFollowedPortraitURL-96},
+"FollowedPortraitURL-128": {JSFollowedPortraitURL-128},
+{block:Likes} "Likes": true, {/block:Likes}
+"Likes": {JSLikes},
+"Likes limit=&quot;5&quot;": {JSLikes limit=&quot;5&quot;},
+"Likes width=&quot;200&quot;": {JSLikes width=&quot;200&quot;},
+"Likes summarize=&quot;100&quot;": {JSLikes summarize=&quot;100&quot;},
+"LikeButton": {JSLikeButton},
+"LikeButton color=&quot;grey&quot;": {JSLikeButton color=&quot;grey&quot;},
+"LikeButton size=&quot;20&quot;": {JSLikeButton size=&quot;20&quot;},
+"ReblogButton": {JSReblogButton},
+"ReblogButton color=&quot;grey&quot;": {JSReblogButton color=&quot;grey&quot;},
+"ReblogButton size=&quot;20&quot;": {JSReblogButton size=&quot;20&quot;},
+{block:RelatedPosts} "RelatedPosts": true, {/block:RelatedPosts}
+{block:Twitter} "Twitter": true, {/block:Twitter}
+"TwitterUsername": {JSTwitterUsername},

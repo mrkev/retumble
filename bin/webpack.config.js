@@ -1,11 +1,12 @@
-const path = require('path');
-const webpack = require('webpack');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
 module.exports = working_dir => {
-
-  const working_dir_modules = path.resolve("node_modules")
-  const retumble_modules = path.resolve(path.join(__dirname, '../node_modules'))
+  const working_dir_modules = path.resolve("node_modules");
+  const retumble_modules = path.resolve(
+    path.join(__dirname, "../node_modules")
+  );
   const modules = [
     // Retumble's node_modules
     retumble_modules,
@@ -14,28 +15,26 @@ module.exports = working_dir => {
     working_dir_modules,
 
     // Default behaviour as fallback
-    "node_modules"
-  ]
+    "node_modules",
+  ];
 
   return {
-
     resolve: { modules },
     resolveLoader: { modules },
 
-    devtool: 'source-map',
+    devtool: "source-map",
     entry: [
-      'react-hot-loader/patch',
-      'webpack-hot-middleware/client',
-      path.join(__dirname, 'index.jsx'),
+      "react-hot-loader/patch",
+      "webpack-hot-middleware/client",
+      path.join(__dirname, "index.jsx"),
     ],
     output: {
-      path: path.join(working_dir, 'static'),
-      filename: 'bundle.js',
-      publicPath: '/static/',
+      path: path.join(working_dir, "static"),
+      filename: "bundle.js",
+      publicPath: "/static/",
     },
 
     plugins: [
-
       // Show compilation progress bar
       new ProgressBarPlugin(),
 
@@ -51,34 +50,36 @@ module.exports = working_dir => {
       // fix around bug in which postcss expetcs option file in project root
       new webpack.LoaderOptionsPlugin({
         options: {
-          postcss: []
-        }
-      })
+          postcss: [],
+        },
+      }),
     ],
 
     module: {
-      loaders: [{
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [path.resolve(__dirname, '..'), path.join(working_dir, '.')],
-        query: {
-          presets: [
-            require.resolve('babel-preset-flow'),
-            require.resolve('babel-preset-env'),
-            require.resolve('babel-preset-react'),
-            require.resolve('babel-preset-stage-0'),
-          ],
-          plugins: ["react-hot-loader/babel"],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: "babel-loader",
+          include: [path.resolve(__dirname, ".."), path.join(working_dir, ".")],
+          query: {
+            presets: [
+              require.resolve("babel-preset-flow"),
+              require.resolve("babel-preset-env"),
+              require.resolve("babel-preset-react"),
+              require.resolve("babel-preset-stage-0"),
+            ],
+            plugins: ["react-hot-loader/babel"],
+          },
         },
-      },
-      {
-        test: /\.css$/,
-        loaders: ["style-loader", "css-loader"],
-        //include: [path.resolve(__dirname, '../'), path.join(working_dir, '.')],
-      }]
-    }
-  }
-}
+        {
+          test: /\.css$/,
+          loaders: ["style-loader", "css-loader"],
+          //include: [path.resolve(__dirname, '../'), path.join(working_dir, '.')],
+        },
+      ],
+    },
+  };
+};
 /*
  {
         test: /\.css$/,
