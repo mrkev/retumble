@@ -15,6 +15,7 @@ x Cache doesn't refresh properly
 - semver test retumble versions
 - write a nice theme in this
 - clean up lib with new helper methods
+- fix bug, scrolling doesn't progress
 
 V2
 - Add redux to allow actions?

@@ -12,35 +12,40 @@ export type ChatLine = {
   UserNumber: number,
 };
 
+export type RawChatLine = {
+  Label: string,
+  Name: string,
+  Line: string,
+  UserNumber: string,
+};
+
 export type Raw = {
   Title?: string,
   Lines: {
-    [string]: {
-      Label: string,
-      Name: string,
-      Line: string,
-      UserNumber: string,
-    },
+    [string]: RawChatLine,
   },
 } & PostRaw;
 
 export type PostChat = {
   Title?: string,
-  Lines: {
-    [string]: ChatLine,
-  },
+  Lines: Array<ChatLine>,
 } & PostPost;
 
 export function postChat(props: Raw): PostChat {
   const post = postFromProps(props);
+
+  function chatLine(raw: RawChatLine): ChatLine {
+    return {
+      Label: raw.Label,
+      Name: raw.Name,
+      Line: raw.Line,
+      UserNumber: parseInt(raw.UserNumber),
+    };
+  }
+
   return {
     ...post,
     Title: props.Title,
-    Lines: lib.obj2arr(props.Lines).map(line => ({
-      Label: line.Label,
-      Name: line.Name,
-      Line: line.Line,
-      UserNumber: parseInt(line.UserNumber),
-    })),
+    Lines: lib.obj2arr(props.Lines).map(chatLine),
   };
 }

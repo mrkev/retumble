@@ -1,10 +1,33 @@
 import lib from "../../lib/obj.jsx";
 import React from "react";
 
+const insertHTML = (elem, src) => {
+  //var script = document.createElement("script");
+  //script.type = "text/javascript";
+  //script.appendChild(document.createTextNode(src));
+  // elem.appendChild(script);
+  elem.innerHTML = src;
+};
+
+function insertScript(elem, src) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.appendChild(document.createTextNode(src));
+  elem.appendChild(script);
+}
+
+function htmlInsert(html: HTML) {
+  return props => {
+    if (!html) return null;
+    props = props || {};
+    return <div {...props} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+
 class LikeButton extends React.Component {
   componentDidMount() {
     const elem = document.getElementById(this.props.id);
-    lib.insertHTML(elem, this.props.src);
+    insertHTML(elem, this.props.src);
     console.log(this.props.src);
   }
   render() {
@@ -18,9 +41,9 @@ export default class Post {
     Object.keys(props).forEach(k => (this[k] = props[k]));
 
     this.Tags = (this.Tags && lib.obj2arr(this.Tags)) || [];
-    this.likebutton = lib.html_insert(this.LikeButton);
-    this.reblogbutton = lib.html_insert(this.ReblogButton);
-    this.postNotes = lib.html_insert(this.PostNotes); // todo null on permalink?
+    this.likebutton = lib.htmlInsert(this.LikeButton);
+    this.reblogbutton = lib.htmlInsert(this.ReblogButton);
+    this.postNotes = lib.htmlInsert(this.PostNotes); // todo null on permalink?
     // this.testlike = <LikeButton
     // 	id={"like-" + this.PostID}
     // 	src={this.LikeButton}></LikeButton>

@@ -109,7 +109,7 @@ function isHomePage(blog: Blog) {
 }
 
 // move this to utilities exposed to user
-// lib.html_insert(); // for use with blog.Description, for example
+// lib.htmlInsert(); // for use with blog.Description, for example
 
 function assignContent(blog: Blog, props: RawProps) {
   blog.Content = {};

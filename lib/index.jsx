@@ -10,13 +10,18 @@ let tumblrBlog = require("../src/TumblrBlog.js").default;
 let Blog = require("val-loader!./includes.js").default;
 
 // Load the blog
-const place = () => {
-  if (!window.object) throw new Error("RIP");
+function place() {
+  if (!window.object) {
+    throw new Error("RIP");
+  }
+
   window.lang = lang(window.object); // removes lang:* entries
   window.props = tumblrBlog(window.object, Blog.options);
 
-  const entry = document.getElementById("blog");
-  if (!entry) throw new Error("No entry DOM element.");
+  const entryPoint = document.getElementById("blog");
+  if (!entryPoint) {
+    throw new Error("No entryPoint DOM element.");
+  }
 
   ReactDOM.render(
     <div>
@@ -26,9 +31,9 @@ const place = () => {
       </Helmet>
       <Blog {...window.props} />
     </div>,
-    entry
+    entryPoint
   );
-};
+}
 
 place();
 

@@ -1,10 +1,10 @@
 // @flow
 
-type Lang = {
+export type Lang = {
   [string]: string,
 };
 
-export default function lang(obj: Object) {
+export default function lang(obj: Object): Lang {
   const lang: Lang = {};
   // todo; Make a process(window.object) -> (Lang, TumblrBlog)
   // todo; move into window.object.lang and don't delete (for debugging)
