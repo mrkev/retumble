@@ -1,9 +1,16 @@
+// @flow
+
 /*
  * String utilities
  */
 
 /** ssaxxxbss -> xxx */
-function between(s, a, b, opts) {
+function between(
+  s: string,
+  a: string,
+  b: string,
+  opts: { min: boolean }
+): string {
   if (!b) b = a;
   if (opts.min) {
     // min substring
@@ -16,14 +23,14 @@ function between(s, a, b, opts) {
 }
 
 /** ssaxxxbss -> sscss */
-function subvert(s, a, b, c) {
+function subvert(s: string, a: string, b: string, c: string): string {
   return (
     s.substring(0, s.indexOf(a)) + c + s.substring(s.lastIndexOf(b) + b.length)
   );
 }
 
 /** ssaxxxbss -> ssacbss */
-function revert(s, a, b, c) {
+function revert(s: string, a: string, b: string, c: string): string {
   return (
     s.substring(0, s.indexOf(a)) +
     a +
@@ -34,12 +41,12 @@ function revert(s, a, b, c) {
 }
 
 /* String -> RegExp String, for a RegExp that would match that string */
-function escapeRegExp(s) {
+function escapeRegExp(s: string): string {
   return s.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
 /** Replaces all ocurrences of find with replace on some string */
-function replaceAll(s, find, replace) {
+function replaceAll(s: string, find: string, replace: string): string {
   return s.replace(new RegExp(escapeRegExp(find), "g"), replace);
 }
 

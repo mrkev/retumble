@@ -1,6 +1,7 @@
+// @flow
 import React from "react";
 
-function obj2arr(obj) {
+function obj2arr<T>(obj: { [string]: T }): Array<T> {
   return Object.keys(obj || {}).map(k => obj[k]);
 }
 

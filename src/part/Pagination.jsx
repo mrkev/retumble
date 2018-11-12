@@ -11,6 +11,7 @@ type Props = {
   TotalPages: string,
 };
 
+// NOTE: Pagination and permalink pagination are different topographies.
 export type Pagination = {
   NextPage?: string,
   PreviousPage?: string,

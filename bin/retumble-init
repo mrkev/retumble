@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require("babel/register");
+
 const program = require("commander");
 const get_remote = require("request-promise");
 const copydir = require("copy-dir");

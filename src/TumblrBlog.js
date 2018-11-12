@@ -1,3 +1,4 @@
+// @flow
 import { postQuote } from "./post/PostQuote";
 import { postLink } from "./post/PostLink";
 import { postChat } from "./post/PostChat";
@@ -6,112 +7,103 @@ import { postAudio } from "./post/PostAudio";
 import { postVideo } from "./post/PostVideo";
 import { postPhoto } from "./post/PostPhoto";
 import { pagination } from "./part/Pagination.jsx";
-import semver from "semver";
 import lib from "./lib/obj.jsx";
 
-export type Page = {
-  URL: string,
-  Label: string,
+import type { PostQuote } from "./post/PostQuote";
+import type { PostLink } from "./post/PostLink";
+import type { PostChat } from "./post/PostChat";
+import type { PostText } from "./post/PostText";
+import type { PostAudio } from "./post/PostAudio";
+import type { PostVideo } from "./post/PostVideo";
+import type { PostPhoto } from "./post/PostPhoto";
+
+////////////////////////////////////////////////////////////////////////// TYPES
+
+type HTML = string;
+
+export type Post =
+  | PostQuote
+  | PostLink
+  | PostChat
+  | PostText
+  | PostAudio
+  | PostVideo
+  | PostPhoto;
+
+export type BlogIdentity = {
+  Title: string,
+  Description?: HTML,
+  PortraitURL: {
+    "16": string,
+    "24": string,
+    "30": string,
+    "40": string,
+    "48": string,
+    "64": string,
+    "96": string,
+    "128": string,
+    "512": string,
+  },
 };
 
-// NOTE: Pagination and permalink pagination are different topographies.
-
-export type Blog = {
+export type BlogContent = {
   Content: {
     Type: string,
     Posts: Array<string>,
     Pagination: Object,
   },
   Pages: Array<Object>,
-  PortraitURL: {
-    "16": null,
-    "24": null,
-    "30": null,
-    "40": null,
-    "48": null,
-    "64": null,
-    "96": null,
-    "128": string,
-    "512": null,
-  },
 };
 
-export type PostKind = Object;
-
-export type RawProps = {
-  AskEnabled: boolean,
-  AskLabel: string,
-  BlogURL: string,
-  CopyrightYears: string,
-  Description: string,
-  Favicon: string,
-  IndexPage: boolean,
-  Pages: {
-    [string]: Page,
-  },
-  Pagination?: {
-    CurrentPage: string,
-    NextPage: string,
-    TotalPages: string,
-  },
-  Posts: {
-    [string]: PostKind,
-  },
-  RSS: string,
-  PermalinkPage?: mixed, // TODO
-  PermalinkPagination?: mixed, // TODO
-  SubmissionsEnabled: boolean,
-  SubmitLabel: string,
-  Title: string,
-  CopyrightYears: string,
-  "PortraitURL-128": string,
+export type Page = {
+  URL: string,
+  Label: string,
 };
 
-function assignPages(blog: Blog, props: RawProps) {
-  // Ensures blog.Pages exists and is an Array
-  blog.Pages = lib.obj2arr(props.Pages);
+export type TumblrBlog = BlogIdentity & {
+  Pages: Array<Page>,
+};
+
+///////////////////////////////////////////////////////////////////// EXTRACTORS
+
+function getPages(props: Object): Array<Page> {
+  const pages = lib.obj2arr(props.Pages);
 
   if (props.AskEnabled) {
-    blog.Pages.push({
+    pages.push({
       URL: "/ask",
       Label: props.AskLabel,
     });
   }
 
   if (props.SubmissionsEnabled) {
-    blog.Pages.push({
+    pages.push({
       URL: "/submit",
       Label: props.SubmitLabel,
     });
   }
+  return pages;
 }
 
-function assignIdentity(blog: Blog, props: RawProps) {
-  blog.Description = props.Description;
-  blog.Title = props.Title;
-
-  blog.PortraitURL = {
-    "16": null,
-    "24": null,
-    "30": null,
-    "40": null,
-    "48": null,
-    "64": null,
-    "96": null,
-    "128": props["PortraitURL-128"],
-    "512": null,
+function getIdentity(props: Object): BlogIdentity {
+  return {
+    Description: props.Description,
+    Title: props.Title,
+    PortraitURL: {
+      "16": props["PortraitURL-16"],
+      "24": props["PortraitURL-24"],
+      "30": props["PortraitURL-30"],
+      "40": props["PortraitURL-40"],
+      "48": props["PortraitURL-48"],
+      "64": props["PortraitURL-64"],
+      "96": props["PortraitURL-96"],
+      "128": props["PortraitURL-128"],
+      "512": props["PortraitURL-512"],
+    },
   };
 }
 
-// move this to utilities exposed to user
-function isHomePage(blog: Blog) {
-  return props.IndexPage && props.Pagination.CurrentPage === "1";
-}
-
-// move this to utilities exposed to user
-// lib.htmlInsert(); // for use with blog.Description, for example
-
-function assignContent(blog: Blog, props: RawProps) {
+function assignContent(blog: Object, props: Object): BlogContent {
   blog.Content = {};
 
   blog.Content.Type = props.IndexPage
@@ -144,9 +136,10 @@ function assignContent(blog: Blog, props: RawProps) {
       // p.Context = blog.PageType;
       return p;
     });
+  return blog;
 }
 
-function assignPagination(blog: Blog, props: RawProps) {
+function assignPagination(blog: Object, props: Object) {
   if (props.IndexPage) {
     blog.Content.Pagination = pagination(props);
   } else if (props.PermalinkPage) {
@@ -158,13 +151,15 @@ function assignPagination(blog: Blog, props: RawProps) {
   }
 }
 
-export default function tumblrBlog(props: RawProps, options: Object) {
-  // const serverVersion = props._retumble.htmlVersion;
-
+export default function tumblrBlog(props: Object, options: Object): TumblrBlog {
   const blog = {};
-  assignIdentity(blog, props);
-  assignPages(blog, props);
+  const identity = getIdentity(props);
+  const Pages = getPages(props);
   assignContent(blog, props);
   assignPagination(blog, props);
-  return blog;
+  return {
+    ...blog,
+    ...identity,
+    Pages,
+  };
 }

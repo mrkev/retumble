@@ -11,4 +11,9 @@ export const Strings = new Proxy(
   }
 );
 
+// TODO: expose to user? necessary?
+function isHomePage(props: Object) {
+  return props.IndexPage && props.Pagination.CurrentPage === "1";
+}
+
 export { InfiniteIndex, PostNotes, getPage };
