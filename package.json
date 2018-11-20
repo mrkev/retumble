@@ -22,28 +22,11 @@
   "dependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.6",
-    "@babel/plugin-proposal-do-expressions": "^7.0.0",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0",
-    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
-    "@babel/plugin-proposal-function-bind": "^7.0.0",
-    "@babel/plugin-proposal-function-sent": "^7.0.0",
-    "@babel/plugin-proposal-json-strings": "^7.0.0",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
-    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
-    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.0",
-    "cheerio": "^1.0.0-rc.2",
-    "cheerio-tableparser": "^1.0.1",
     "commander": "^2.19.0",
     "copy-dir": "^0.4.0",
     "cors": "^2.8.5",
@@ -63,9 +46,7 @@
     "react-waypoint": "^8.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "semver": "^5.6.0",
     "style-loader": "^0.23.1",
-    "table2json": "^0.2.2",
     "tmp": "0.0.33",
     "unzipper": "^0.9.4",
     "val-loader": "^1.1.1",
@@ -75,6 +56,9 @@
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
-    "flow-bin": "^0.86.0"
+    "flow-bin": "^0.86.0",
+    "table2json": "^0.2.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cheerio-tableparser": "^1.0.1"
   }
 }
