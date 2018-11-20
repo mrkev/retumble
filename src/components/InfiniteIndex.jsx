@@ -36,16 +36,16 @@ export default class InfiniteIndex extends React.Component<Props, State> {
 
   // todo; what happens when the end is reached
   nextIndex() {
-    // console.log("WAYPOINT ENTER")
     if (this.state.Pagination.CurrentPage >= this.state.Pagination.TotalPages) {
       return;
     }
     this.setState({ query: "loading" });
+    console.log("fetching", this.state.Pagination);
     getPage(this.state.Pagination.Next)
       .catch(e => {
+        console.error("error fetchig next index");
+        console.error(e);
         this.setState({ query: "error" });
-        // console.error('error fetchig next index')
-        // console.error(e)
       })
       .then(blog => {
         const index = blog.Content;

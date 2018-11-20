@@ -33,16 +33,6 @@
   "MetaDescription": {JSMetaDescription},
 {/block:Description}
 
-{block:AskEnabled}
-  "AskEnabled" : true,
-  "AskLabel" : {JSAskLabel},
-{/block:AskEnabled}
-
-{block:SubmissionsEnabled}
-  "SubmissionsEnabled" : true,
-  "SubmitLabel" : {JSSubmitLabel},
-{/block:SubmissionsEnabled}
-
   {block:PermalinkPage} "PermalinkPage": true, {/block:PermalinkPage}
   {block:IndexPage} "IndexPage": true, {/block:IndexPage}
   {block:HomePage} "HomePage": true, {/block:HomePage}
@@ -77,17 +67,16 @@
   {block:HideHeaderImage} "HideHeaderImage": true, {/block:HideHeaderImage}
 
 
-// NAVIGATOIN
+// NAVIGATION
 
 // True/false if the page needs pagination (aka, TotalPages !== 1).
 // Just use that to test instead.
 // {block:Pagination} "Pagination": true, {/block:Pagination}
+// These bad boys render as empty strings outside of their blocks, so
+// we have to nest them and make them optional.
 // PreviousPage/NextPage render as "" if these are false.
-// Just test against empty string instead.
-// {block:PreviousPage} "PreviousPage": true, {/block:PreviousPage}
-// {block:NextPage} "NextPage": true, {/block:NextPage}
-"PreviousPage": {JSPreviousPage},
-"NextPage": {JSNextPage},
+{block:NextPage} "NextPage": {JSNextPage}, {/block:NextPage}
+{block:PreviousPage} "PreviousPage": {JSPreviousPage}, {/block:PreviousPage}
 "CurrentPage": {JSCurrentPage},
 "TotalPages": {JSTotalPages},
 
@@ -95,6 +84,16 @@
 // "SubmitLabel": {JSSubmitLabel},
 // {block:AskEnabled} "AskEnabled": true, {/block:AskEnabled}
 // "AskLabel": {JSAskLabel},
+
+{block:AskEnabled}
+  "AskEnabled" : true,
+  "AskLabel" : {JSAskLabel},
+{/block:AskEnabled}
+
+{block:SubmissionsEnabled}
+  "SubmissionsEnabled" : true,
+  "SubmitLabel" : {JSSubmitLabel},
+{/block:SubmissionsEnabled}
 
 // {block:JumpPagination} "JumpPagination": true, {/block:JumpPagination}
 // {block:CurrentPage} "CurrentPage": true, {/block:CurrentPage}

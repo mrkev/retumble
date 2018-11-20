@@ -7,7 +7,7 @@
   },
   "main": "src/Retumble.js",
   "scripts": {
-    "test": "ava"
+    "flow": "flow ."
   },
   "repository": {
     "type": "git",
