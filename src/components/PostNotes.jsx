@@ -44,7 +44,10 @@ export default class PostNotes extends Component {
         <Drawer
           right={true}
           width={400}
-          config={[100, 40]}
+          config={{
+            stiffness: 350,
+            damping: 40,
+          }}
           {...drawerProps}
           open={drawerIsOpen}
           onChange={open => this.setState({ drawerIsOpen: open })}
