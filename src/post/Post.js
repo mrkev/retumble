@@ -1,7 +1,5 @@
 // @flow
 
-import lib from "../lib/obj.jsx";
-
 /**
  * The shared structure of all posts.
  */
@@ -43,7 +41,7 @@ export type PostPost = {
 
 export function postFromProps(props: PostRaw): PostPost {
   const post = {};
-  post.Tags = (props.Tags && lib.obj2arr(props.Tags)) || [];
+  post.Tags = (props.Tags && Object.values(props.Tags)) || [];
   post.PostNotesURL = props.PostNotesURL; // todo null on permalink?
   post.LikeButton = props.LikeButton;
   post.ReblogButton = props.ReblogButton;

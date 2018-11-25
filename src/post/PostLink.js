@@ -1,6 +1,6 @@
 //@flow
 import React from "react";
-import lib from "../lib/obj.jsx";
+
 import { postFromProps } from "./Post";
 
 import type { HTML, Tag, PostRaw, PostPost } from "./Post";

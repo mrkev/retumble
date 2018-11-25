@@ -1,7 +1,10 @@
 // @flow
-import InfiniteIndex from "./components/InfiniteIndex.jsx";
 import { getPage } from "./lib/extract.js";
-import PostNotes from "./components/PostNotes.jsx";
+
+// TODO: expose to user? necessary?
+function isHomePage(props: Object) {
+  return props.IndexPage && props.Pagination.CurrentPage === "1";
+}
 
 export const Strings = new Proxy(
   {},
@@ -11,9 +14,4 @@ export const Strings = new Proxy(
   }
 );
 
-// TODO: expose to user? necessary?
-function isHomePage(props: Object) {
-  return props.IndexPage && props.Pagination.CurrentPage === "1";
-}
-
-export { InfiniteIndex, PostNotes, getPage };
+export { getPage };

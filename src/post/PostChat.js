@@ -1,6 +1,6 @@
 //@flow
 import React from "react";
-import lib from "../lib/obj.jsx";
+
 import { postFromProps } from "./Post";
 
 import type { HTML, Tag, PostRaw, PostPost } from "./Post";
@@ -46,6 +46,6 @@ export function postChat(props: Raw): PostChat {
   return {
     ...post,
     Title: props.Title,
-    Lines: lib.obj2arr(props.Lines).map(chatLine),
+    Lines: Object.values(props.Lines).map(chatLine),
   };
 }

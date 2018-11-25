@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-import lib from "../lib/obj.jsx";
 
 type Props = {
   NextPage?: string,

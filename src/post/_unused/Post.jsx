@@ -40,7 +40,7 @@ export default class Post {
     // Take all properites
     Object.keys(props).forEach(k => (this[k] = props[k]));
 
-    this.Tags = (this.Tags && lib.obj2arr(this.Tags)) || [];
+    this.Tags = (this.Tags && Object.values(this.Tags)) || [];
     this.likebutton = lib.htmlInsert(this.LikeButton);
     this.reblogbutton = lib.htmlInsert(this.ReblogButton);
     this.postNotes = lib.htmlInsert(this.PostNotes); // todo null on permalink?

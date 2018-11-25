@@ -7,7 +7,6 @@ import { postAudio } from "./post/PostAudio";
 import { postVideo } from "./post/PostVideo";
 import { postPhoto } from "./post/PostPhoto";
 import { pagination } from "./part/Pagination.jsx";
-import lib from "./lib/obj.jsx";
 
 import type { PostQuote } from "./post/PostQuote";
 import type { PostLink } from "./post/PostLink";
@@ -67,7 +66,7 @@ export type TumblrBlog = BlogIdentity & {
 ///////////////////////////////////////////////////////////////////// EXTRACTORS
 
 function getPages(props: Object): Array<Page> {
-  const pages = lib.obj2arr(props.Pages);
+  const pages = Object.values(props.Pages);
 
   if (props.AskEnabled) {
     pages.push({
@@ -111,8 +110,7 @@ function assignContent(blog: Object, props: Object): BlogContent {
     : // ? "post" // TODO
       "page";
 
-  blog.Content.Posts = lib
-    .obj2arr(props.Posts)
+  blog.Content.Posts = Object.values(props.Posts)
     .map(
       p =>
         p.PostType === "photo"

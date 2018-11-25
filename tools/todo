@@ -14,9 +14,9 @@ x Cache doesn't refresh properly
 - figure out permalink pagination
 - semver test retumble versions
 - write a nice theme in this
-- clean up lib with new helper methods
+x clean up lib with new helper methods
 x fix bug, scrolling doesn't progress
-- move components out of core retumble and into retumble-blank
+x move components out of core retumble and into retumble-blank
 - can drag notes drawer out from the edge of the screen. fix
 
 V2
